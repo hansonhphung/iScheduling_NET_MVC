@@ -1,0 +1,17 @@
+# Compiled source #
+###################
+*.com
+*.class
+*.dll
+
+# Logs and databases #
+######################
+*.log
+
+# Packages #
+######################
+*/packages
+
+# Visual Studio#######
+######################
+*/.vs
