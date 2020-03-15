@@ -12,8 +12,8 @@
 
 # Packages #
 ######################
-packages
+*/packages
 
 # Visual Studio########
 ######################
-.vs
+*/.vs
