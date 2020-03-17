@@ -70,7 +70,7 @@ namespace iScheduling.Controllers
                 return RedirectToAction("List");
             }catch(Exception ex)
             {
-                return RedirectToAction("Link");
+                return RedirectToAction("List");
             }
         }
 
