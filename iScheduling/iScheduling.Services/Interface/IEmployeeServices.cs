@@ -10,5 +10,13 @@ namespace iScheduling.Services.Interface
     public interface  IEmployeeServices : IServices
     {
         IList<Employee> GetAllEmployees();
+
+        Employee GetEmployeeById(string empId);
+
+        bool AddEmployee(Employee e);
+
+        bool UpdateEmployee(Employee e);
+
+        bool DeleteEmployee(string empId);
     }
 }
