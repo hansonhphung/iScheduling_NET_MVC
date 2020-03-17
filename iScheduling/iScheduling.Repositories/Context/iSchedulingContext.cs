@@ -1,4 +1,5 @@
 ﻿using iScheduling.Context.Entities;
+using iScheduling.Repositories.Context.Entities;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -12,5 +13,8 @@ namespace iScheduling.Repositories.Context
         public iSchedulingContext() : base("iSchedulingContext") { }
 
         public DbSet<Employee> Employees { get; set; }
+        public DbSet<Shift> Shifts { get; set; }
+        public DbSet<VacationRequest> VacationRequests { get; set; }
+        public DbSet<DayOffRequest> DayOffRequests { get; set; }
     }
 }
