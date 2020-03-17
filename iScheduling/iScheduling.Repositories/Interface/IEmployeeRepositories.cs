@@ -10,5 +10,13 @@ namespace iScheduling.Repositories.Interface
     public interface IEmployeeRepositories : IRepositories
     {
         IList<Employee> GetAllEmployees();
+
+        Employee GetEmployeeById(string empId);
+
+        bool AddEmployee(Employee emp);
+
+        bool UpdateEmployee(Employee emp);
+
+        bool DeleteEmployee(string empId);
     }
 }
