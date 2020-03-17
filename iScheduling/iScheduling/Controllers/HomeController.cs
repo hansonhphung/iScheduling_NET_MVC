@@ -17,9 +17,7 @@ namespace iScheduling.Controllers
 
         public ActionResult Index()
         {
-            var lstEmployees = employeeServices.GetAllEmployees();
-
-            return View();
+            return RedirectToAction("List", "Employee");
         }
 
         public ActionResult About()
