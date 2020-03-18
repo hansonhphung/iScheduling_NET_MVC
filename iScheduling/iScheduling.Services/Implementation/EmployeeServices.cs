@@ -30,7 +30,7 @@ namespace iScheduling.Implementation.Services
                     Address = x.Address,
                     Phone = x.Phone,
                     Email = x.Email,
-                    Position = (Role)Enum.Parse(typeof(Role), x.Position)
+                    Position = x.Position
                 }).ToList();
             }catch(Exception ex)
             {
@@ -54,7 +54,7 @@ namespace iScheduling.Implementation.Services
                     Address = empEntity.Address,
                     Phone = empEntity.Phone,
                     Email = empEntity.Email,
-                    Position = (Role)Enum.Parse(typeof(Role), empEntity.Position)
+                    Position = empEntity.Position
                 };
             }
             catch (Exception ex)
@@ -76,7 +76,7 @@ namespace iScheduling.Implementation.Services
                     // Password will be automatically generated and hashsed.
                     // Will refractor later
                     Password = "Password",
-                    Position = emp.Position.ToString(),
+                    Position = emp.Position,
                     CreatedAt = DateTime.Now,
                     Email = emp.Email,
                     Phone = emp.Phone,

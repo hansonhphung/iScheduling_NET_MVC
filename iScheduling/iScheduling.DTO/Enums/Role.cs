@@ -15,7 +15,7 @@ namespace iScheduling.DTO.Enums
         FRONT_TEAM_MANAGER,
         [Description("Production Manager")]
         PRODUCTION_TEAM_MANAGER,
-        [Description("Font Team Member")]
+        [Description("Front Team Member")]
         FRONT_TEAM_MEMBER,
         [Description("Production Team Member")]
         PRODUCTION_TEAM_MEMBER

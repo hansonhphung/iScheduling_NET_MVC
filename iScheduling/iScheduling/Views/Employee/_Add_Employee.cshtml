@@ -56,9 +56,10 @@
                                 <label>Role: </label>
                                 @Html.DropDownListFor(m => m.Position, new SelectList(Enum.GetValues(typeof(iScheduling.DTO.Enums.Role))
                                                                   .Cast<iScheduling.DTO.Enums.Role>()
-                                                                  .Select(x => EnumHelpers.GetDescription(x))
-                                                                  .ToList()),
-                                                             new { @class = "form-control" })
+                                                                  .Select(x => new SelectListItem()
+                                                                    { Text = EnumHelpers.GetDescription(x), Value = EnumHelpers.GetDescription(x)})
+                                                                  .ToList(), "Value", "Text"),
+                                                             new { @class = "form-control"})
                             </div>
                         </div>
                     </form>

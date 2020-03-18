@@ -1,6 +1,6 @@
 ﻿$(document).ready(() => {
     getEmployeeInfo = (empId) => {
-        var url = `http://localhost:52901/Employee/Edit?employeeId=${empId}`;
+        var url = `/Employee/Edit?employeeId=${empId}`;
 
         $.get(url, (data) => {
             $('#edit-employee-modal').html(data);
@@ -10,7 +10,7 @@
     }
 
     deleteEmployee = (empId) => {
-        var url = `http://localhost:52901/Employee/_Delete?employeeId=${empId}`;
+        var url = `/Employee/_Delete?employeeId=${empId}`;
 
         $.get(url, (data) => {
             $('#delete-employee-modal').html(data);

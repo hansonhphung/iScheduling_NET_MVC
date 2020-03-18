@@ -2,22 +2,31 @@
 
 @using iScheduling.Helper
 
+@using iScheduling.DTO.Enums;
+
+@{
+    var roles = Enum.GetValues(typeof(Role)).Cast<Role>()
+                                   .Select(x => new SelectListItem() { Text = EnumHelpers.GetDescription(x), Value = EnumHelpers.GetDescription(x) })
+                                   .ToList();
+}
+
 @using (Html.BeginForm("Edit", "Employee"))
 {
+
     <!-- Modal -->
     /**/
     <div class="modal fade" id="edit-employee" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h3 class="modal-title">Add Employee</h3>
+                    <h3 class="modal-title">Edit Employee Information</h3>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
                 <div class="modal-body">
                     <form>
-                        
+
                         @Html.HiddenFor(m => m.EmployeeId)
 
                         <div class="row form-group">
@@ -53,15 +62,11 @@
                             </div>
                         </div>
 
-
                         <div class="row form-group">
                             <div class="col-md-12">
                                 <label>Role: </label>
-                                @Html.DropDownListFor(m => m.Position, new SelectList(Enum.GetValues(typeof(iScheduling.DTO.Enums.Role))
-                                                                  .Cast<iScheduling.DTO.Enums.Role>()
-                                                                  .Select(x => EnumHelpers.GetDescription(x))
-                                                                  .ToList()),
-                                                             new { @class = "form-control" })
+                                @Html.DropDownListFor(m => m.Position, new SelectList(roles, "Value", "Text", roles.Where(x => x.Value == Model.Position).FirstOrDefault()),
+                                                                new { @class = "form-control" })
                             </div>
                         </div>
                     </form>
