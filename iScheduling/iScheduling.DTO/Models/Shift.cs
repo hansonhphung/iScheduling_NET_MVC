@@ -9,9 +9,9 @@ namespace iScheduling.DTO.Models
     {
         public string ShiftId { get; set; }
         public string EmployeeId { get; set; }
-        public string AssignedBy { get; set; }
-        public DateTime AssignedAt { get; set; }
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
+        public bool IsDelete { get; set; }
+        public bool IsCancel { get; set; }
     }
 }

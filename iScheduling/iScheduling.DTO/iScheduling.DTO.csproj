@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="Enums\Role.cs" />
     <Compile Include="Models\Employee.cs" />
+    <Compile Include="Models\EmployeeShift.cs" />
     <Compile Include="Models\Shift.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

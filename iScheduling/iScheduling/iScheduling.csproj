@@ -152,32 +152,49 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="APIResponseMessages.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>APIResponseMessages.resx</DependentUpon>
+    </Compile>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IoCConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\EmployeeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ShiftController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helper\ColorHelpers.cs" />
     <Compile Include="Helper\EnumHelpers.cs" />
+    <Compile Include="Helper\StringHelpers.cs" />
     <Compile Include="Models\BaseViewModel.cs" />
     <Compile Include="Models\CustomException.cs" />
-    <Compile Include="Models\ListEmployeesVM.cs" />
+    <Compile Include="Models\Employee\ListEmployeesVM.cs" />
+    <Compile Include="Models\Shift\AddShiftVM.cs" />
+    <Compile Include="Models\Shift\ShiftCalendarViewVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\bootstrap-datepicker.min.css" />
+    <Content Include="Content\bootstrap-datepicker.standalone.min.css" />
+    <Content Include="Content\bootstrap-datepicker3.min.css" />
+    <Content Include="Content\bootstrap-datepicker3.standalone.min.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\employee.css" />
+    <Content Include="Content\shift.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Scripts\app-js\add-edit-shift.js" />
     <Content Include="Scripts\app-js\employee.js" />
+    <Content Include="Scripts\app-js\shift.js" />
+    <Content Include="Scripts\bootstrap-datepicker.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
@@ -209,6 +226,9 @@
     <Content Include="Views\Employee\_Add_Employee.cshtml" />
     <Content Include="Views\Employee\_Edit_Employee.cshtml" />
     <Content Include="Views\Employee\_Delete_Employee.cshtml" />
+    <Content Include="Views\Shift\CalendarView.cshtml" />
+    <Content Include="Views\Shift\_Add_Edit_Shift.cshtml" />
+    <Content Include="Views\Shift\_ListShift.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -239,6 +259,12 @@
       <Project>{52a64b32-568e-4562-9ad6-86b44a8cdb48}</Project>
       <Name>iScheduling.Services</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="APIResponseMessages.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>APIResponseMessages.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

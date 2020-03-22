@@ -1,0 +1,36 @@
+﻿@model iScheduling.Models.BaseViewModel<DateTime?>
+
+@{
+    ViewBag.Title = "List of Employees";
+}
+
+
+@Html.HiddenFor(m => m.Data, new { @id="selected-date"})
+<div class="clearfix">
+    <h2>Shift Management</h2>
+
+    <div class="input-group" style="display:inline">
+
+        <div class="input-group-btn" style="display:inline-block; width:20%">
+            <input type="text" placeholder="Pick a Date" id="shiftdatePicker" class="form-control">
+            <button class="btn btn-success" type="button"><i class="glyphicon glyphicon-calendar"></i></button>
+        </div>
+
+        <a class="btn btn-success bold float-right" onclick="getShiftInfo()">
+            <i class="glyphicon glyphicon-plus"></i>
+            <span>Add Shift</span>
+        </a>
+    </div>
+</div>
+
+<p></p>
+
+<div id="list-shifts"></div>
+
+<div id="add-shift-modal"></div>
+
+@Scripts.Render("~/bundles/jquery")
+
+@Styles.Render("~/Content/shift.css")
+
+@Scripts.Render("~/Scripts/app-js/shift.js")
