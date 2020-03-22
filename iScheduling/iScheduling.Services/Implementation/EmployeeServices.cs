@@ -35,8 +35,19 @@ namespace iScheduling.Implementation.Services
             }catch(Exception ex)
             {
                 throw ex;
+            }   
+        }
+
+        public IList<Employee> GetAllEmployeeOrderByPosition()
+        {
+            try
+            {
+                return GetAllEmployees().OrderBy(x => x.Position).ToList();
             }
-            
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public Employee GetEmployeeById(string empId)
@@ -120,6 +131,6 @@ namespace iScheduling.Implementation.Services
                 throw ex;
             }
         }
-        
+
     }
 }

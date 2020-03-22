@@ -11,6 +11,8 @@ namespace iScheduling.Services.Interface
     {
         IList<Employee> GetAllEmployees();
 
+        IList<Employee> GetAllEmployeeOrderByPosition();
+
         Employee GetEmployeeById(string empId);
 
         bool AddEmployee(Employee e);
