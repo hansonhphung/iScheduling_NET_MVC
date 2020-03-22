@@ -15,8 +15,10 @@ namespace iScheduling.Repositories.Context.Entities
         public string RequestId { get; set; }
         public string RequestEmployeeId { get; set; }
         public string ResponseManagerId { get; set; }
-        public string ShiftId { get; set; }
-        
+        public string RequestedShiftId { get; set; }
+        [ForeignKey("RequestedShiftId")]
+        public virtual Shift RequestedShift { get; set; }
+        public DateTime RequestedAt { get; set; }
         public string Status { get; set; }
         public string Comment { get; set; }
     }
