@@ -58,13 +58,21 @@
     <Compile Include="Context\iSchedulingContext.cs" />
     <Compile Include="Implementation\BaseRepositories.cs" />
     <Compile Include="Implementation\EmployeeRepositories.cs" />
+    <Compile Include="Implementation\ShiftRepositories.cs" />
     <Compile Include="Interface\IEmployeeRepositories.cs" />
     <Compile Include="Interface\IRepositories.cs" />
+    <Compile Include="Interface\IShiftRepositories.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\iScheduling.DTO\iScheduling.DTO.csproj">
+      <Project>{ddff6d58-d718-4767-a599-fabf420991a3}</Project>
+      <Name>iScheduling.DTO</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
