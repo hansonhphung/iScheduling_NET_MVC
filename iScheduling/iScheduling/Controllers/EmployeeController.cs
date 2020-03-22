@@ -1,5 +1,5 @@
 ﻿using iScheduling.DTO.Models;
-using iScheduling.Models;
+using iScheduling.Models.Employee;
 using iScheduling.Services.Interface;
 using System;
 using System.Collections.Generic;

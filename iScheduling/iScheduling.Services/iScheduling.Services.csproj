@@ -43,8 +43,10 @@
   <ItemGroup>
     <Compile Include="Implementation\BaseServices.cs" />
     <Compile Include="Implementation\EmployeeServices.cs" />
+    <Compile Include="Implementation\ShiftServices.cs" />
     <Compile Include="Interface\IEmployeeServices.cs" />
     <Compile Include="Interface\IServices.cs" />
+    <Compile Include="Interface\IShiftServices.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
