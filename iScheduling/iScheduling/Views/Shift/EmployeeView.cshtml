@@ -1,0 +1,50 @@
+﻿@model iScheduling.DTO.Models.Employee
+
+@{
+    ViewBag.Title = "List of Assigned Shifts";
+}
+
+<input id="is-calendar-view" type="hidden" value="false" />
+
+@Html.HiddenFor(m => m.EmployeeId, new { @id = "empId" })
+
+<div class="clearfix">
+    <h2>Employee: @Model.FullName</h2>
+
+    <div class="form-group row">
+        <div class="col-md-5 col-sm-5">
+            <div class="input-group-btn" style="display:inline-flex; width:60%">
+                <input type="text" placeholder="Start Date" id="shiftStartDatePicker" class="form-control" style="display:inline-table">
+                <button class="btn btn-success" type="button" style="display:inline-table"><i class="glyphicon glyphicon-calendar"></i></button>
+            </div>
+        </div>
+
+        <div class="col-md-5 col-sm-5">
+            <div class="input-group-btn" style="display:inline-flex; width:60%">
+                <input type="text" placeholder="End Date" id="shiftEndDatePicker" class="form-control" style="display:inline-table">
+                <button class="btn btn-success" type="button" style="display:inline-table"><i class="glyphicon glyphicon-calendar"></i></button>
+            </div>
+        </div>
+
+        <div class="col-md-2 col-sm-2">
+            <a class="btn btn-success bold float-right" onclick="addShift(false)">
+                <i class="glyphicon glyphicon-plus"></i>
+                <span>Add Shift</span>
+            </a>
+        </div>
+
+    </div>
+</div>
+
+<p></p>
+
+<div id="list-shifts-employee-view"></div>
+
+<div id="add-shift-modal"></div>
+
+
+@Styles.Render("~/Content/shift.css")
+
+@Scripts.Render("~/bundles/jquery")
+
+@Scripts.Render("~/Scripts/app-js/shift.js")
