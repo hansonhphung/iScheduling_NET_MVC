@@ -89,7 +89,7 @@ namespace iScheduling.Repositories.Implementation
                                           && x.EndTime <= nextEndDate
                                           && x.IsDeleted == false
                                           && x.IsCancelled == false)
-                                      .ToList();
+                                      .OrderBy(s => s.StartTime).ToList();
             }
             catch (Exception ex)
             {

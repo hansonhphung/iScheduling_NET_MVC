@@ -48,32 +48,92 @@ namespace iScheduling.Controllers
         }
 
         [HttpGet]
-        public ActionResult Add(DateTime selectedDate)
+        public ActionResult EmployeeView(string empId)
         {
-            var lstEmployee = employeeServices.GetAllEmployeeOrderByPosition();
+            try
+            {
+                var employee = employeeServices.GetEmployeeById(empId);
+
+                return View(employee);
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+        }
+        
+        [HttpGet]
+        public ActionResult ListShiftEmployeeView(string empId, DateTime startDate, DateTime endDate)
+        {
+            try
+            {
+                var lstShifts = shiftServices.GetAllShiftsByEmployeesWithinTime(empId, startDate, endDate);
+
+                
+                var employeeShifts = new ShiftEmployeeViewVM
+                {
+                    EmployeeId = empId,
+                    ListShifts = lstShifts
+                };
+
+                return PartialView("_List_Shift_Employee_View", employeeShifts);
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("List", "Employee");
+            }
+        }
+
+        [HttpGet]
+        public ActionResult AddCalendarView(DateTime selectedDate)
+        {
+            IList<Employee> lstEmployee = employeeServices.GetAllEmployeeOrderByPosition();
+            
             var shift = new AddShiftVM()
             {
                 DateOfShift = selectedDate,
-                ListEmployees = lstEmployee
-
+                ListEmployees = lstEmployee,
+                IsCalendarView = true
             };
 
             return PartialView("_Add_Edit_Shift", shift);
         }
 
+        [HttpGet]
+        public ActionResult AddShiftEmployeeView(string employeeId, DateTime startDate, DateTime endDate)
+        {
+            string employeeFullName = employeeFullName = employeeServices.GetEmployeeById(employeeId).FullName;
+
+            var shift = new AddShiftVM()
+            {
+                AssignedShiftEmployeeId = employeeId,
+                AssignedShiftEmployeeFullName = employeeFullName,
+                StartDate = startDate,
+                EndDate = endDate,
+                IsCalendarView = false
+            };
+
+            return PartialView("_Add_Edit_Shift", shift);
+        }
 
         [HttpPost]
         public ActionResult Add(AddShiftVM shift)
         {
             try
             {
+                var startAt = DateTime.Parse(shift.ShiftStartAt);
+                var endAt = DateTime.Parse(shift.ShiftEndAt);
+
                 bool isAdded = shiftServices.AddShift(new Shift() {
                     EmployeeId = shift.AssignedShiftEmployeeId,
                     // Work around to fix bug UI cannot parse datetime.
                     // Then simple get the DateOfShift plus the start/end hour of the shift
-                    StartTime = shift.DateOfShift.AddHours(shift.ShiftStartAt.Hour),
-                    EndTime = shift.DateOfShift.AddHours(shift.ShiftEndAt.Hour)
+                    StartTime = ((DateTime)shift.DateOfShift).AddHours(startAt.Hour),
+                    EndTime = ((DateTime)shift.DateOfShift).AddHours(endAt.Hour)
                 });
+
+                if (!shift.IsCalendarView)
+                    return Json(new BaseViewModel<bool>(true, string.Empty , isAdded), JsonRequestBehavior.AllowGet);
 
                 return RedirectToAction("Index", shift.DateOfShift);
 
@@ -86,7 +146,7 @@ namespace iScheduling.Controllers
         }
 
         [HttpGet]
-        public ActionResult Edit(string shiftId)
+        public ActionResult Edit(string shiftId, bool isCalendarView)
         {
             try
             {
@@ -96,12 +156,14 @@ namespace iScheduling.Controllers
 
                 var shiftVM = new AddShiftVM()
                 {
+                    IsCalendarView = isCalendarView,
                     ShiftId = shift.ShiftId,
                     DateOfShift = shift.StartTime.Date,
                     ListEmployees = lstEmployee,
                     AssignedShiftEmployeeId = shift.EmployeeId,
-                    ShiftStartAt = shift.StartTime,
-                    ShiftEndAt = shift.EndTime
+                    AssignedShiftEmployeeFullName = shift.FullName,
+                    ShiftStartAt = shift.StartTime.ToShortTimeString(),
+                    ShiftEndAt = shift.EndTime.ToShortTimeString()
                 };
 
                 return PartialView("_Add_Edit_Shift", shiftVM);
@@ -117,18 +179,23 @@ namespace iScheduling.Controllers
         {
             try
             {
+                var startAt = DateTime.Parse(shift.ShiftStartAt);
+                var endAt = DateTime.Parse(shift.ShiftEndAt);
+
                 bool isEdited = shiftServices.EditShift(new Shift()
                 {
                     ShiftId = shift.ShiftId,
                     EmployeeId = shift.AssignedShiftEmployeeId,
                     // Work around to fix bug UI cannot parse datetime.
                     // Then simple get the DateOfShift plus the start/end hour of the shift
-                    StartTime = shift.DateOfShift.AddHours(shift.ShiftStartAt.Hour),
-                    EndTime = shift.DateOfShift.AddHours(shift.ShiftEndAt.Hour)
+                    StartTime = ((DateTime)shift.DateOfShift).AddHours(startAt.Hour),
+                    EndTime = ((DateTime)shift.DateOfShift).AddHours(endAt.Hour)
                 });
 
-                return RedirectToAction("Index", shift.DateOfShift);
+                if (!shift.IsCalendarView)
+                    return Json(new BaseViewModel<bool>(true, string.Empty, isEdited), JsonRequestBehavior.AllowGet);
 
+                return RedirectToAction("Index", shift.DateOfShift);
             }
             catch (Exception ex)
             {
@@ -149,5 +216,7 @@ namespace iScheduling.Controllers
                 return Json(new BaseViewModel<bool>(false, ex.Message, false), JsonRequestBehavior.AllowGet);
             }
         }
+
+        
     }
 }
