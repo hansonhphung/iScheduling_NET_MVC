@@ -20,7 +20,7 @@ namespace iScheduling
             );
 
             routes.MapRoute(
-                name: "Shift",
+                name: "EmployeeShift",
                 url: "Shift/{empId}/{startDate}/{endDate}",
                 new { controller = "Shift", action = "ListShiftEmployeeView" });
 

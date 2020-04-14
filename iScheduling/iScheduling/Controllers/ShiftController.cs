@@ -27,17 +27,21 @@ namespace iScheduling.Controllers
         }
 
         // GET: Shift
-        public ActionResult Index(DateTime? date)
+        public ActionResult Index()
         {
-            
-            return View("CalendarView", new BaseViewModel<DateTime?>(true, "", date));
+            return RedirectToAction("ListShiftCalendarView", "Shift");
+        }
+
+        [HttpGet]
+        public ActionResult ListShiftCalendarView(string date)
+        {
+            var selectedDate = (date == null || date.Equals(string.Empty)) ? DateTime.Today : DateTime.Parse(date);
+            return View("CalendarView", new BaseViewModel<DateTime?>(true, "", selectedDate));
         }
 
         [HttpPost]
         public ActionResult List(DateTime date)
         {
-            //DateTime datee = DateTime.Parse(date);
-
             var lstShifts = shiftServices.GetAllShiftsByDate(date).ToList();
             lstShifts.ForEach(x => x.ColorFrom = ColorHelpers.RandomColor());
             lstShifts.ForEach(x => x.ColorTo = ColorHelpers.RandomColor());
@@ -135,7 +139,10 @@ namespace iScheduling.Controllers
                 if (!shift.IsCalendarView)
                     return Json(new BaseViewModel<bool>(true, string.Empty , isAdded), JsonRequestBehavior.AllowGet);
 
-                return RedirectToAction("Index", shift.DateOfShift);
+                string dateOfShift = ((DateTime)shift.DateOfShift).ToString("MM-dd-yyyy");
+                string url = string.Format("ListShiftCalendarView?date={0}", dateOfShift);
+
+                return Redirect(url);
 
                 //return Json(new BaseViewModel<bool>(true, APIResponseMessages.ADD_SHIFT_SUCCESS, true));
             }
@@ -195,7 +202,11 @@ namespace iScheduling.Controllers
                 if (!shift.IsCalendarView)
                     return Json(new BaseViewModel<bool>(true, string.Empty, isEdited), JsonRequestBehavior.AllowGet);
 
-                return RedirectToAction("Index", shift.DateOfShift);
+
+                string dateOfShift = ((DateTime)shift.DateOfShift).ToString("MM-dd-yyyy");
+                string url = string.Format("ListShiftCalendarView?date={0}", dateOfShift);
+
+                return Redirect(url);
             }
             catch (Exception ex)
             {
