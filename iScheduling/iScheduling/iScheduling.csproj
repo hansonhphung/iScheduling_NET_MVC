@@ -175,6 +175,7 @@
     <Compile Include="Models\Employee\ListEmployeesVM.cs" />
     <Compile Include="Models\Shift\AddShiftVM.cs" />
     <Compile Include="Models\Shift\ShiftCalendarViewVM.cs" />
+    <Compile Include="Models\Shift\ShiftEmployeeViewVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -229,6 +230,8 @@
     <Content Include="Views\Shift\CalendarView.cshtml" />
     <Content Include="Views\Shift\_Add_Edit_Shift.cshtml" />
     <Content Include="Views\Shift\_ListShift.cshtml" />
+    <Content Include="Views\Shift\EmployeeView.cshtml" />
+    <Content Include="Views\Shift\_List_Shift_Employee_View.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

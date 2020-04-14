@@ -1,5 +1,32 @@
 ﻿$(document).ready(() => {
 
+    initModal = () => {
+
+        var dateOfShiftPicker = $('#dateOfShiftPicker');
+
+        // This is employee view as DateOfShiftPicker only available in Employee View
+        if (dateOfShiftPicker != undefined && dateOfShiftPicker != null) {
+
+            var startDate = $('#startDate').val();
+            var endDate = $('#endDate').val();
+
+            var dateOfShift = $('#dateOfShift').val();
+
+            var initialDate = new Date(startDate);
+
+            if (dateOfShift != '' & dateOfShift != null && dateOfShift != undefined)
+                initialDate = new Date(dateOfShift);
+
+
+            dateOfShiftPicker.datepicker({
+                startDate: startDate,
+                endDate: endDate,
+                autoclose: true,
+                format: "MM-dd-yyyy"
+            }).datepicker("setDate", initialDate);
+        }
+    }
+
     $('#start-time-picker .cell').on('click', function () {
         $('#start-time-picker .cell').removeClass('select');
         $(this).addClass('select');
@@ -36,23 +63,47 @@
         $('#end-time-picker').addClass('show-time-picker');
     }
 
-    deleteShift = (shiftId) => {
-        var url = `/Shift/Delete?shiftId=${shiftId}`;
+    submitAddOrUpdateShift = () => {
+        var isCalendarView = $('#isCalendarView').val();
+        var shiftId = $('#shiftId').val();
+        var employeeId = '';
+        var dateOfShift = '';
+        if (isCalendarView == 'true') {
+            employeeId = $('#ddlEmployeeId').val();
+            dateOfShift = $('#dateOfShift').val();
+        }
+        else {
+            employeeId = $('#employeeId').val();
+            dateOfShift = $('#dateOfShiftPicker').val();
+        }
 
-        $.get(url, (deleteRes) => {
-            var lstShiftURL = `/Shift/List`;
+        var startTime = $('#start-time').val();
+        var endTime = $('#end-time').val();
 
-            var shiftDate = $('#date-of-shift').val();
 
-            var data = { date: shiftDate };
+        var action = (shiftId == '' || shiftId == undefined || shiftId == null) ? 'Add' : 'Edit';
+        var url = `/Shift/${action}`;
 
-            $.post(lstShiftURL, data, (lstShiftRes) => {
-                $('#list-shifts').html(lstShiftRes);
+        var data = {
+            IsCalendarView: isCalendarView,
+            ShiftId: shiftId,
+            AssignedShiftEmployeeId: employeeId,
+            DateOfShift: dateOfShift,
+            ShiftStartAt: startTime,
+            ShiftEndAt: endTime
+        };
 
-                $('#add-edit-shift').modal('hide');
+        $.post(url, data, (res) => {
+            if (!res.IsSuccess)
+                alert(res.Message);
 
-                alert(deleteRes.Message);
-            });
+            // reload list shifts page
+            var selectedEndDate = $('#shiftEndDatePicker').val();
+            $('#shiftEndDatePicker').datepicker("setDate", selectedEndDate);
+
+            $('#add-edit-shift').modal('hide');
         });
     }
+
+    initModal();
 });

@@ -42,7 +42,7 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.FirstName)
+                <a href="/Shift/EmployeeView?empId=@item.EmployeeId">@item.FirstName</a>
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.LastName)
