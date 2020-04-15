@@ -161,6 +161,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IoCConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AuthController.cs" />
     <Compile Include="Controllers\EmployeeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ShiftController.cs" />
@@ -170,6 +171,7 @@
     <Compile Include="Helper\ColorHelpers.cs" />
     <Compile Include="Helper\EnumHelpers.cs" />
     <Compile Include="Helper\StringHelpers.cs" />
+    <Compile Include="Models\AuthorizeUser.cs" />
     <Compile Include="Models\BaseViewModel.cs" />
     <Compile Include="Models\CustomException.cs" />
     <Compile Include="Models\Employee\ListEmployeesVM.cs" />
@@ -232,6 +234,7 @@
     <Content Include="Views\Shift\_ListShift.cshtml" />
     <Content Include="Views\Shift\EmployeeView.cshtml" />
     <Content Include="Views\Shift\_List_Shift_Employee_View.cshtml" />
+    <Content Include="Views\Auth\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

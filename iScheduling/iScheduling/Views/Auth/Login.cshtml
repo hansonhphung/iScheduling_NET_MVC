@@ -1,0 +1,45 @@
+﻿@model iScheduling.Context.Entities.Employee
+
+@{
+    ViewBag.Title = "Login";
+    Layout = "";
+}
+
+@Styles.Render("~/Content/css")
+
+
+@using (Html.BeginForm("Login", "Auth"))
+{
+    <input type="hidden" name="ReturnUrl" value="@ViewBag.ReturnUrl" />
+    <div class="form-group">
+        <div class="col-md-4 align-center">
+            @if (ViewBag.Message != null)
+            {
+                <div class="row">
+                    <label style="color:red">@ViewBag.Message</label>
+                </div>
+            }
+            <div class="row form-group">
+                <label>User Name: </label>
+                @Html.TextBoxFor(m => m.Username, new { @class = "form-control", @placeholder = "Username" })
+            </div>
+
+            <div class="row form-group">
+                <label>Password: </label>
+                @Html.PasswordFor(m => m.Password, new { @class = "form-control", @placeholder = "Password" })
+            </div>
+
+            <div class="row form-group">
+                <div style="text-align: center">
+                    <button type="submit" class="btn btn-success bold">Login</button>
+                    <button type="button" class="btn btn-default bold" style="margin-left:30px">Cancel</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/bootstrap")

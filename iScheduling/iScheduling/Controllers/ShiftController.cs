@@ -12,6 +12,7 @@ using System.Web.Mvc;
 
 namespace iScheduling.Controllers
 {
+    [Authorize]
     public class ShiftController : Controller
     {
         private readonly IEmployeeServices employeeServices;

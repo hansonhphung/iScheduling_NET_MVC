@@ -9,6 +9,7 @@ using System.Web.Mvc;
 
 namespace iScheduling.Controllers
 {
+    [Authorize]
     public class EmployeeController : Controller
     {
         private readonly IEmployeeServices _employeeServices;
