@@ -9,6 +9,7 @@ namespace iScheduling.Services.Interface
 {
     public interface  IEmployeeServices : IServices
     {
+        Employee Login(string username, string password);
         IList<Employee> GetAllEmployees();
 
         IList<Employee> GetAllEmployeeOrderByPosition();

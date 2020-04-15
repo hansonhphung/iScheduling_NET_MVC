@@ -13,6 +13,21 @@ namespace iScheduling.Repositories.Implementation
     public class EmployeeRepositories : BaseRepositories, IEmployeeRepositories
     {
         public EmployeeRepositories(iSchedulingContext context) : base(context)  { } 
+
+        public Employee Login(string username, string password)
+        {
+            try
+            {
+                var employee = Entities.Employees.Where(x => x.Username.Equals(username) && x.Password.Equals(password)).FirstOrDefault();
+
+                return employee;
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         public IList<Employee> GetAllEmployees()
         {
             try

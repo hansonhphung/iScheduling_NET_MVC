@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EncryptHelper.cs" />
     <Compile Include="Enums\Role.cs" />
     <Compile Include="Models\Employee.cs" />
     <Compile Include="Models\EmployeeShift.cs" />

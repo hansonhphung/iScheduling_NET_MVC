@@ -1,4 +1,5 @@
 ﻿using iScheduling.Context;
+using iScheduling.DTO;
 using iScheduling.DTO.Enums;
 using iScheduling.DTO.Models;
 using iScheduling.Repositories.Interface;
@@ -16,6 +17,33 @@ namespace iScheduling.Implementation.Services
         private readonly IEmployeeRepositories employeeRepositories;
         public EmployeeServices(IEmployeeRepositories _employeeRepository){
             employeeRepositories = _employeeRepository;
+        }
+
+        public Employee Login(string username, string password)
+        {
+            try
+            {
+                password = EncryptHelper.Encrypt(password);
+
+                var empEntity = employeeRepositories.Login(username, password);
+
+                if (empEntity == null)
+                    return null;
+
+                return new Employee {
+                    EmployeeId = empEntity.EmployeeId,
+                    FirstName = empEntity.FirstName,
+                    LastName = empEntity.LastName,
+                    Email = empEntity.Email,
+                    Address = empEntity.Address,
+                    Phone = empEntity.Phone,
+                    Position = empEntity.Position
+                };
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public IList<Employee> GetAllEmployees()
@@ -86,7 +114,7 @@ namespace iScheduling.Implementation.Services
                     Username = emp.Username,
                     // Password will be automatically generated and hashsed.
                     // Will refractor later
-                    Password = "Password",
+                    Password = EncryptHelper.Encrypt("Password"),
                     Position = emp.Position,
                     CreatedAt = DateTime.Now,
                     Email = emp.Email,
@@ -131,6 +159,8 @@ namespace iScheduling.Implementation.Services
                 throw ex;
             }
         }
+
+
 
     }
 }

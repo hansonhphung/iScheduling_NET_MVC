@@ -9,6 +9,7 @@ namespace iScheduling.Repositories.Interface
 {
     public interface IEmployeeRepositories : IRepositories
     {
+        Employee Login(string username, string password);
         IList<Employee> GetAllEmployees();
 
         Employee GetEmployeeById(string empId);
