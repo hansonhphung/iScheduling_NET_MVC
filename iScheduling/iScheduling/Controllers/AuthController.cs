@@ -1,10 +1,10 @@
 ﻿using iScheduling.DTO.Enums;
 using iScheduling.Helper;
 using iScheduling.Models;
+using iScheduling.Models.Auth;
 using iScheduling.Services.Interface;
+using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
@@ -53,7 +53,20 @@ namespace iScheduling.Controllers
                         ReturnUrl = "/Shift";
                 }
 
-                FormsAuthentication.SetAuthCookie(emp.Username, false);
+                string userData = JsonConvert.SerializeObject(emp);
+
+                FormsAuthenticationTicket authTicket = new FormsAuthenticationTicket(
+                                                            1, emp.EmployeeId, 
+                                                            DateTime.Now, DateTime.Now.AddMinutes(30), 
+                                                            false, userData
+                                                        );
+
+                string encryptTicket = FormsAuthentication.Encrypt(authTicket);
+
+                HttpCookie userCookie = new HttpCookie("userCookie", encryptTicket);
+                Response.Cookies.Add(userCookie);
+
+                //FormsAuthentication.SetAuthCookie(emp.EmployeeId, false);
 
                 return Redirect(ReturnUrl);
 
@@ -67,6 +80,10 @@ namespace iScheduling.Controllers
 
         public ActionResult Logout()
         {
+            HttpCookie userCookie = new HttpCookie("userCookie", "");
+            userCookie.Expires = DateTime.Now.AddYears(-1);
+            Response.Cookies.Add(userCookie);
+
             FormsAuthentication.SignOut();
             return View("Login");
         }

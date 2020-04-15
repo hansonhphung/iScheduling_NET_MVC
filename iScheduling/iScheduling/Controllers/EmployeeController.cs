@@ -1,4 +1,5 @@
 ﻿using iScheduling.DTO.Models;
+using iScheduling.Models.Auth;
 using iScheduling.Models.Employee;
 using iScheduling.Services.Interface;
 using System;
@@ -9,7 +10,7 @@ using System.Web.Mvc;
 
 namespace iScheduling.Controllers
 {
-    [Authorize]
+    [CustomAuthorize(Roles = "Store Manager, Front Manager, Production Manager")]
     public class EmployeeController : Controller
     {
         private readonly IEmployeeServices _employeeServices;

@@ -1,6 +1,7 @@
 ﻿using iScheduling.DTO.Models;
 using iScheduling.Helper;
 using iScheduling.Models;
+using iScheduling.Models.Auth;
 using iScheduling.Models.Shift;
 using iScheduling.Services.Interface;
 using System;
@@ -12,7 +13,7 @@ using System.Web.Mvc;
 
 namespace iScheduling.Controllers
 {
-    [Authorize]
+    [CustomAuthorize(Roles = "Store Manager, Front Manager, Production Manager")]
     public class ShiftController : Controller
     {
         private readonly IEmployeeServices employeeServices;
@@ -52,6 +53,8 @@ namespace iScheduling.Controllers
             return PartialView("_ListShift", lstEmployeeShifts);
         }
 
+        [OverrideAuthorization]
+        [CustomAuthorize(Roles = "Store Manager, Front Manager, Production Manager, Front Team Member, Production Team Member")]
         [HttpGet]
         public ActionResult EmployeeView(string empId)
         {
@@ -66,7 +69,9 @@ namespace iScheduling.Controllers
                 throw ex;
             }
         }
-        
+
+        [OverrideAuthorization]
+        [CustomAuthorize(Roles = "Store Manager, Front Manager, Production Manager, Front Team Member, Production Team Member")]
         [HttpGet]
         public ActionResult ListShiftEmployeeView(string empId, DateTime startDate, DateTime endDate)
         {

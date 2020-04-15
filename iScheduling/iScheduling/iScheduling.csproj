@@ -171,7 +171,9 @@
     <Compile Include="Helper\ColorHelpers.cs" />
     <Compile Include="Helper\EnumHelpers.cs" />
     <Compile Include="Helper\StringHelpers.cs" />
-    <Compile Include="Models\AuthorizeUser.cs" />
+    <Compile Include="Models\Auth\AuthenticationPrincipal.cs" />
+    <Compile Include="Models\Auth\AuthorizeUser.cs" />
+    <Compile Include="Models\Auth\CustomAuthorizeAttribute.cs" />
     <Compile Include="Models\BaseViewModel.cs" />
     <Compile Include="Models\CustomException.cs" />
     <Compile Include="Models\Employee\ListEmployeesVM.cs" />
