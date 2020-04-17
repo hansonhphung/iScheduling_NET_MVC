@@ -60,6 +60,14 @@ namespace iScheduling.Controllers
         {
             try
             {
+                var userInfo = (AuthenticationPrincipal) System.Web.HttpContext.Current.User;
+
+                // Invalid empId as this is an employee. Not able to access other information
+                if (HttpContext.User.IsInRole("Front Team Member, Production Team Member") && !userInfo.EmployeeId.Equals(empId))
+                {
+                    return Redirect(string.Format("/Shift/EmployeeView?empId={0}", userInfo.EmployeeId));
+                }
+
                 var employee = employeeServices.GetEmployeeById(empId);
 
                 return View(employee);
