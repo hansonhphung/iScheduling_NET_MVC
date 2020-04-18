@@ -20,22 +20,10 @@
                 @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    @{
-                        string MANAGEMENT_ROLE = string.Format("{0}, {1}, {2}",
-                            iScheduling.Helper.EnumHelpers.GetDescription(iScheduling.DTO.Enums.Role.STORE_MANAGER),
-                            iScheduling.Helper.EnumHelpers.GetDescription(iScheduling.DTO.Enums.Role.PRODUCTION_TEAM_MANAGER),
-                            iScheduling.Helper.EnumHelpers.GetDescription(iScheduling.DTO.Enums.Role.FRONT_TEAM_MANAGER));
-
-                        string MEMBER_ROLE = string.Format("{0}, {1}",
-                            iScheduling.Helper.EnumHelpers.GetDescription(iScheduling.DTO.Enums.Role.FRONT_TEAM_MEMBER),
-                            iScheduling.Helper.EnumHelpers.GetDescription(iScheduling.DTO.Enums.Role.PRODUCTION_TEAM_MEMBER));
-                    }
-
-                    
+                <ul class="nav navbar-nav">                    
                     @if (HttpContext.Current.User != null)
                     {
-                        if (HttpContext.Current.User.IsInRole(MANAGEMENT_ROLE))
+                        if (((iScheduling.Models.Auth.AuthenticationPrincipal)HttpContext.Current.User).IsInManagementRole())
                         {
                             <li>@Html.ActionLink("Employee", "List", "Employee")</li>
                             <li>@Html.ActionLink("Shift", "Index", "Shift")</li>

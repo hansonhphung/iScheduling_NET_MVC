@@ -47,3 +47,9 @@
 #list-shifts {
     margin-top: 20px;
 }
+
+#list-shifts-employee-view .dor-status{
+    padding: 5px 10px 5px 10px;
+    border-radius: 30px;
+    font-size: 13px;
+}

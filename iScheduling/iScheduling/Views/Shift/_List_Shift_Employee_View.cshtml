@@ -2,33 +2,63 @@
 
 
 <table class="table">
-    <tr>
-        <th class="col-md-3">Date</th>
-        <th class="col-md-3">Start Time</th>
-        <th class="col-md-3">End Time</th>
+    <tr class="row">
+        <th class="col-md-3 col-sm-3">Date</th>
+        <th class="col-md-3 col-sm-3">Start Time</th>
+        <th class="col-md-3 col-sm-3">End Time</th>
+        <th class="col-md-2 col-sm-2">Request Day Off Status</th>
         <th></th>
     </tr>
 
     @foreach (var item in Model.ListShifts)
     {
-        <tr>
-            <td class="col-md-3">
+        <tr class="row">
+            <td class="col-md-3 col-sm-3">
                 @item.StartTime.Date.ToLongDateString()
             </td>
-            <td class="col-md-3">
+            <td class="col-md-3 col-sm-3">
                 @item.StartTime.ToShortTimeString()
             </td>
-            <td class="col-md-3">
+            <td class="col-md-3 col-sm-3">
                 @item.EndTime.ToShortTimeString()
             </td>
-            <td>
-                <a class="btn btn-warning bold" onclick="editShift('@item.ShiftId', false)">
-                    <i class="glyphicon glyphicon-pencil"></i>
-                </a>
+            <td class="col-md-2 col-sm-2">
+                @{ 
+                    if (item.DayOffRequest != null) {
+                        string labelClass = "";
+                        if (item.DayOffRequest.Status.Equals("Pending"))
+                        {
+                            labelClass = "btn-warning";
+                        }else if (item.DayOffRequest.Status.Equals("Approved"))
+                        {
+                            labelClass = "btn-success";
+                        }
+                        else
+                        {
+                            labelClass = "btn-danger";
+                        }
 
-                <a class="btn btn-danger bold" onclick="deleteShift('@item.ShiftId')">
-                    <i class="glyphicon glyphicon-remove"></i>
-                </a>
+                        <label class="dor-status @labelClass">@item.DayOffRequest.Status</label>
+                    }
+                }
+            </td>
+            <td>
+                @{
+                    if (((iScheduling.Models.Auth.AuthenticationPrincipal)HttpContext.Current.User).IsInManagementRole())
+                    {
+                        <a class="btn btn-warning bold" onclick="editShift('@item.ShiftId', false)">
+                            <i class="glyphicon glyphic5on-pencil"></i>
+                        </a>
+
+                        <a class="btn btn-danger bold" onclick="deleteShift('@item.ShiftId')">
+                            <i class="glyphicon glyphicon-remove"></i>
+                        </a>
+                    }
+                    else if (item.DayOffRequest == null)
+                    {
+                        <a class="btn btn-info" onclick="requestDayOff('@item.ShiftId')">Request Day Off</a>
+                    }
+                }
             </td>
         </tr>
     }

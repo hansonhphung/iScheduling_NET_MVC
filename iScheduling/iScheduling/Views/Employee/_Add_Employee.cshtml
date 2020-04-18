@@ -1,7 +1,5 @@
 ﻿@model iScheduling.DTO.Models.Employee
 
-@using iScheduling.Helper
-
 @using (Html.BeginForm("Add", "Employee"))
 {
     <!-- Modal -->
@@ -57,7 +55,7 @@
                                 @Html.DropDownListFor(m => m.Position, new SelectList(Enum.GetValues(typeof(iScheduling.DTO.Enums.Role))
                                                                   .Cast<iScheduling.DTO.Enums.Role>()
                                                                   .Select(x => new SelectListItem()
-                                                                    { Text = EnumHelpers.GetDescription(x), Value = EnumHelpers.GetDescription(x)})
+                                                                    { Text = iScheduling.DTO.Enums.EnumHelpers.GetDescription(x), Value = iScheduling.DTO.Enums.EnumHelpers.GetDescription(x)})
                                                                   .ToList(), "Value", "Text"),
                                                              new { @class = "form-control"})
                             </div>
