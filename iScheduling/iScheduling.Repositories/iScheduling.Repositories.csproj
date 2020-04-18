@@ -57,8 +57,10 @@
     <Compile Include="Context\Entities\VacationRequest.cs" />
     <Compile Include="Context\iSchedulingContext.cs" />
     <Compile Include="Implementation\BaseRepositories.cs" />
+    <Compile Include="Implementation\DayOffRequestRepositories.cs" />
     <Compile Include="Implementation\EmployeeRepositories.cs" />
     <Compile Include="Implementation\ShiftRepositories.cs" />
+    <Compile Include="Interface\IDayOffRequestRepositories.cs" />
     <Compile Include="Interface\IEmployeeRepositories.cs" />
     <Compile Include="Interface\IRepositories.cs" />
     <Compile Include="Interface\IShiftRepositories.cs" />

@@ -20,6 +20,7 @@ namespace iScheduling.Repositories.Context.Entities
         public virtual Shift RequestedShift { get; set; }
         public DateTime RequestedAt { get; set; }
         public string Status { get; set; }
-        public string Comment { get; set; }
+        public string Reason { get; set; }
+        public string ResponseComment { get; set; }
     }
 }
