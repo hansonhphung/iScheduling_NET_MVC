@@ -45,14 +45,7 @@ namespace iScheduling.Services.Implementation
         {
             try
             {
-                return shiftRepositories.GetAllShiftsByEmployeesWithinTime(employeeId, startDate, endDate)
-                    .Select(x => new Shift()
-                    {
-                        ShiftId = x.ShiftId,
-                        EmployeeId = x.EmployeeId,
-                        StartTime = x.StartTime,
-                        EndTime = x.EndTime
-                    }).ToList();
+                return shiftRepositories.GetAllShiftsByEmployeesWithinTime(employeeId, startDate, endDate).ToList();
             }
             catch (Exception ex)
             {

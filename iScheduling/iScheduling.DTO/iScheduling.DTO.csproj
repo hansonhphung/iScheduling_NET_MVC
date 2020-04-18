@@ -42,7 +42,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EncryptHelper.cs" />
+    <Compile Include="Enums\DayOffRequestStatus.cs" />
+    <Compile Include="Enums\EnumHelpers.cs" />
     <Compile Include="Enums\Role.cs" />
+    <Compile Include="Models\DayOffRequest.cs" />
     <Compile Include="Models\Employee.cs" />
     <Compile Include="Models\EmployeeShift.cs" />
     <Compile Include="Models\Shift.cs" />

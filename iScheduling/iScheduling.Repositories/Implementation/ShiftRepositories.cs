@@ -79,17 +79,39 @@ namespace iScheduling.Repositories.Implementation
             }
         }
 
-        public IList<Context.Entities.Shift> GetAllShiftsByEmployeesWithinTime(string employeeId, DateTime startDate, DateTime endDate)
+        public IList<DTO.Models.Shift> GetAllShiftsByEmployeesWithinTime(string employeeId, DateTime startDate, DateTime endDate)
         {
             try
             {
                 DateTime nextEndDate = endDate.AddDays(1);
-                return Entities.Shifts.Where(x => x.EmployeeId == employeeId 
-                                          && x.StartTime >= startDate 
-                                          && x.EndTime <= nextEndDate
-                                          && x.IsDeleted == false
-                                          && x.IsCancelled == false)
-                                      .OrderBy(s => s.StartTime).ToList();
+
+                var listShifts = (from shift in Entities.Shifts
+                                  join dor in Entities.DayOffRequests on shift.ShiftId equals dor.RequestedShiftId into shift_dor
+                                  from s_dor in shift_dor.DefaultIfEmpty()
+                                  where (shift.EmployeeId == employeeId
+                                      && shift.StartTime >= startDate
+                                      && shift.EndTime <= nextEndDate
+                                      && shift.IsDeleted == false
+                                      && shift.IsCancelled == false)
+                                  orderby shift.StartTime
+                                  select new 
+                                  {
+                                      Shift = shift, DateOfRequest = s_dor
+                                  }).ToList();
+
+                return listShifts.Select(x => new DTO.Models.Shift
+                {
+                    ShiftId = x.Shift.ShiftId,
+                    EmployeeId = x.Shift.EmployeeId,
+                    StartTime = x.Shift.StartTime,
+                    EndTime = x.Shift.EndTime,
+                    DayOffRequest = (x.DateOfRequest != null) ? new DTO.Models.DayOffRequest {
+                        RequestId = x.DateOfRequest.RequestId,
+                        RequestedShiftId = x.DateOfRequest.RequestedShiftId,
+                        Status = x.DateOfRequest.Status,
+                        Reason = x.DateOfRequest.Reason
+                    } : null
+                }).ToList();
             }
             catch (Exception ex)
             {

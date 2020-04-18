@@ -12,7 +12,7 @@ namespace iScheduling.Repositories.Interface
         DTO.Models.EmployeeShift GetShiftById(string shiftId);
         IList<DTO.Models.EmployeeShift> GetAllShiftsByDate(DateTime date);
 
-        IList<Shift> GetAllShiftsByEmployeesWithinTime(string employeeId, DateTime startDate, DateTime endDate);
+        IList<DTO.Models.Shift> GetAllShiftsByEmployeesWithinTime(string employeeId, DateTime startDate, DateTime endDate);
 
         bool AddShift(Shift shift);
 

@@ -14,6 +14,7 @@ namespace iScheduling.DTO.Models
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
         public DateTime DateOfShift { get; set; }
+        public DayOffRequest DayOffRequest { get; set; }
         public int NonWorking_1 {
             get {
                 return StartTime.Hour - OPENING_HOUR;

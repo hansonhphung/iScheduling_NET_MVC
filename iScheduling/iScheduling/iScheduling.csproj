@@ -162,6 +162,7 @@
     <Compile Include="App_Start\IoCConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AuthController.cs" />
+    <Compile Include="Controllers\DayOffRequestController.cs" />
     <Compile Include="Controllers\EmployeeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ShiftController.cs" />
@@ -169,13 +170,15 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helper\ColorHelpers.cs" />
-    <Compile Include="Helper\EnumHelpers.cs" />
+    <Compile Include="Helper\CookieHelpers.cs" />
     <Compile Include="Helper\StringHelpers.cs" />
     <Compile Include="Models\Auth\AuthenticationPrincipal.cs" />
     <Compile Include="Models\Auth\AuthorizeUser.cs" />
     <Compile Include="Models\Auth\CustomAuthorizeAttribute.cs" />
     <Compile Include="Models\BaseViewModel.cs" />
     <Compile Include="Models\CustomException.cs" />
+    <Compile Include="Models\DayOffRequest\AddDayOffRequestVM.cs" />
+    <Compile Include="Models\DayOffRequest\ApproveRejectDayOffRequestVM.cs" />
     <Compile Include="Models\Employee\ListEmployeesVM.cs" />
     <Compile Include="Models\Shift\AddShiftVM.cs" />
     <Compile Include="Models\Shift\ShiftCalendarViewVM.cs" />
@@ -198,6 +201,7 @@
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\app-js\add-edit-shift.js" />
     <Content Include="Scripts\app-js\employee.js" />
+    <Content Include="Scripts\app-js\day-off-request.js" />
     <Content Include="Scripts\app-js\shift.js" />
     <Content Include="Scripts\bootstrap-datepicker.min.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -237,6 +241,10 @@
     <Content Include="Views\Shift\EmployeeView.cshtml" />
     <Content Include="Views\Shift\_List_Shift_Employee_View.cshtml" />
     <Content Include="Views\Auth\Login.cshtml" />
+    <Content Include="Views\DayOffRequest\_Create_Day_Off_Request.cshtml" />
+    <Content Include="Views\DayOffRequest\_Approve_Day_Off_Request.cshtml" />
+    <Content Include="Views\DayOffRequest\List.cshtml" />
+    <Content Include="Views\DayOffRequest\_Reject_Day_Off_Request.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
