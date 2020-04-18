@@ -24,7 +24,6 @@ namespace iScheduling.Models.Auth
 
         protected override bool AuthorizeCore(HttpContextBase httpContext)
         {
-            Console.WriteLine("aaa");
             return ((CurrentUser != null) && !CurrentUser.IsInRole(Roles) || CurrentUser == null) ? false : true;
         }
 

@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Web;
 
-namespace iScheduling.Helper
+namespace iScheduling.DTO.Enums
 {
     public static class EnumHelpers
     {
