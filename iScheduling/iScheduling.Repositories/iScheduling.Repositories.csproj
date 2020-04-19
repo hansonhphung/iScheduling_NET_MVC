@@ -60,10 +60,12 @@
     <Compile Include="Implementation\DayOffRequestRepositories.cs" />
     <Compile Include="Implementation\EmployeeRepositories.cs" />
     <Compile Include="Implementation\ShiftRepositories.cs" />
+    <Compile Include="Implementation\VacationRequestRepositories.cs" />
     <Compile Include="Interface\IDayOffRequestRepositories.cs" />
     <Compile Include="Interface\IEmployeeRepositories.cs" />
     <Compile Include="Interface\IRepositories.cs" />
     <Compile Include="Interface\IShiftRepositories.cs" />
+    <Compile Include="Interface\IVacationRequestRepositories.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

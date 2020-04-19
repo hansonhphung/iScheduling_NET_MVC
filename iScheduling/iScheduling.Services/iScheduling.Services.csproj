@@ -45,10 +45,12 @@
     <Compile Include="Implementation\DayOffRequestServices.cs" />
     <Compile Include="Implementation\EmployeeServices.cs" />
     <Compile Include="Implementation\ShiftServices.cs" />
+    <Compile Include="Implementation\VacationRequestServices.cs" />
     <Compile Include="Interface\IDayOffRequestServices.cs" />
     <Compile Include="Interface\IEmployeeServices.cs" />
     <Compile Include="Interface\IServices.cs" />
     <Compile Include="Interface\IShiftServices.cs" />
+    <Compile Include="Interface\IVacationRequestServices.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
