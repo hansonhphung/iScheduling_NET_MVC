@@ -12,7 +12,7 @@ namespace iScheduling.Repositories.Interface
         bool CreateVacationRequest(VacationRequest request);
         bool ApproveRequest(string requestId, string approvedBy, string responseComment);
         bool RejectRequest(string requestId, string rejectedBy, string responseComment);
-        IList<DTO.Models.VacationRequest> SearchRequest(string keyword);
+        IList<DTO.Models.VacationRequest> SearchRequest(string empId, string keyword);
         DTO.Models.VacationRequest GetRequestById(string requestId);
     }
 }

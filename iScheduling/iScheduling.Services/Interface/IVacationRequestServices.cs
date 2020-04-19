@@ -9,7 +9,7 @@ namespace iScheduling.Services.Interface
 {
     public interface IVacationRequestServices
     {
-        IList<VacationRequest> SearchRequest(string keyword);
+        IList<VacationRequest> SearchRequest(string empId, string keyword);
         VacationRequest GetRequestById(string requestId);
         bool CreateVacationRequest(VacationRequest request);
         bool ApproveRequest(string requestId, string approvedBy, string responseComment);

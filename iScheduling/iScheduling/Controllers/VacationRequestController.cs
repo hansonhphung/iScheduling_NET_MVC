@@ -30,7 +30,13 @@ namespace iScheduling.Controllers
             {
                 keyword = (keyword == null) ? string.Empty : keyword;
 
-                var lstRequest = vacationRequestServices.SearchRequest(keyword);
+                var empId = "";
+
+                var userInfo = CookieHelpers.GetUserInfo();
+                if (userInfo.IsInMemberRole())
+                    empId = userInfo.EmployeeId; ;
+
+                var lstRequest = vacationRequestServices.SearchRequest(empId, keyword);
 
                 var vm = new ListVacationRequestVM
                 {
@@ -70,6 +76,90 @@ namespace iScheduling.Controllers
                 var isAdded = vacationRequestServices.CreateVacationRequest(vacationRequest);
 
                 return Json(new BaseViewModel<bool>(true, string.Empty, isAdded), JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new BaseViewModel<bool>(true, ex.Message, false), JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [HttpGet]
+        public ActionResult Approve(string requestId)
+        {
+            try
+            {
+                var request = vacationRequestServices.GetRequestById(requestId);
+
+                var requestVM = new ApproveRejectVacationRequestVM
+                {
+                    RequestId = request.RequestId,
+                    RequestedBy = request.RequestEmployeeName,
+                    RequestedAt = request.RequestedAt,
+                    StartDate = request.StartDate,
+                    EndDate = request.EndDate,
+                };
+
+                return PartialView("_Approve_Vacation_Request", requestVM);
+            }
+            catch (Exception ex)
+            {
+                return Redirect("/VacationRequest/List");
+            }
+        }
+
+        [HttpPost]
+        public ActionResult Approve(ApproveRejectVacationRequestVM request)
+        {
+            try
+            {
+                var userInfo = CookieHelpers.GetUserInfo();
+
+                var isApproved = vacationRequestServices.ApproveRequest(request.RequestId, userInfo.EmployeeId, request.ResponseComment);
+
+                return Json(new BaseViewModel<bool>(true, string.Empty, isApproved), JsonRequestBehavior.AllowGet);
+
+            }
+            catch(Exception ex)
+            {
+                return Json(new BaseViewModel<bool>(true, ex.Message, false), JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [HttpGet]
+        public ActionResult Reject(string requestId)
+        {
+            try
+            {
+                var request = vacationRequestServices.GetRequestById(requestId);
+
+                var requestVM = new ApproveRejectVacationRequestVM
+                {
+                    RequestId = request.RequestId,
+                    RequestedBy = request.RequestEmployeeName,
+                    RequestedAt = request.RequestedAt,
+                    StartDate = request.StartDate,
+                    EndDate = request.EndDate,
+                };
+
+                return PartialView("_Reject_Vacation_Request", requestVM);
+            }
+            catch (Exception ex)
+            {
+                return Redirect("/VacationRequest/List");
+            }
+        }
+
+        [HttpPost]
+        public ActionResult Reject(ApproveRejectVacationRequestVM request)
+        {
+            try
+            {
+                var userInfo = CookieHelpers.GetUserInfo();
+
+                var isApproved = vacationRequestServices.RejectRequest(request.RequestId, userInfo.EmployeeId, request.ResponseComment);
+
+                return Json(new BaseViewModel<bool>(true, string.Empty, isApproved), JsonRequestBehavior.AllowGet);
+
             }
             catch (Exception ex)
             {

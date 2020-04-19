@@ -14,15 +14,15 @@ namespace iScheduling.Repositories.Implementation
     {
         public VacationRequestRepositories(iSchedulingContext context) : base(context) { }
 
-        public IList<DTO.Models.VacationRequest> SearchRequest(string keyword)
+        public IList<DTO.Models.VacationRequest> SearchRequest(string empId, string keyword)
         {
             try
             {
-                return Entities.VacationRequests
+                IQueryable<DTO.Models.VacationRequest> query = Entities.VacationRequests
                     .Join(Entities.Employees, vr => vr.RequestEmployeeId, e => e.EmployeeId,
-                         (vr,e) => new { vr, e})
-                    .Where(x => x.e.FirstName.Contains(keyword) || x.e.LastName.Contains(keyword))
-                    .Select(x => new DTO.Models.VacationRequest {
+                         (vr, e) => new { vr, e })
+                    .Where(x => x.e.FirstName.Contains(keyword) || x.e.LastName.Contains(keyword)).Select(x => new DTO.Models.VacationRequest
+                    {
                         RequestId = x.vr.RequestId,
                         RequestEmployeeId = x.vr.RequestEmployeeId,
                         RequestEmployeeName = x.e.FirstName + " " + x.e.LastName,
@@ -31,9 +31,12 @@ namespace iScheduling.Repositories.Implementation
                         EndDate = x.vr.EndDate,
                         Status = x.vr.Status,
                         ResponseComment = x.vr.Comment
-                    })
-                    .OrderByDescending(x => x.RequestedAt)
-                    .ToList();
+                    });
+
+                if (!empId.Equals(string.Empty))
+                    query = query.Where(x => x.RequestEmployeeId.Equals(empId));
+
+                return query.OrderByDescending(x => x.RequestedAt).ToList();
             }
             catch (Exception ex)
             {

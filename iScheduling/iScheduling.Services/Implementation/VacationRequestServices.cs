@@ -19,11 +19,11 @@ namespace iScheduling.Services.Implementation
             vacationRequestRepositories = _vacationRequestRepositories;
         }
 
-        public IList<VacationRequest> SearchRequest(string keyword)
+        public IList<VacationRequest> SearchRequest(string empId, string keyword)
         {
             try
             {
-                return vacationRequestRepositories.SearchRequest(keyword);
+                return vacationRequestRepositories.SearchRequest(empId, keyword);
             }catch(Exception ex)
             {
                 throw ex;
