@@ -1,0 +1,52 @@
+﻿@model iScheduling.Models.VacationRequest.ApproveRejectVacationRequestVM
+
+<div class="modal fade" id="approve-vacation-request" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="row">
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                        <div class="md-form form-group">
+                            <h5>Requested By: @Model.RequestedBy</h5>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                        <div class="md-form form-group">
+                            <h5>Requested At: @Model.RequestedAt.ToShortDateString()</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                        <div class="md-form form-group">
+                            <label>Start Date: @Model.StartDate.ToShortDateString()</label>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-sm-6 col-xs6">
+                        <div class="md-form form-group">
+                            <label>End Date: @Model.EndDate.ToShortDateString()</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="md-form form-group">
+                            <label>Comment: </label>
+                            @Html.TextAreaFor(m => m.ResponseComment, new { @class = "form-control", @id = "txtApproveVacationComment", @placeholder = "Comment" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success bold" onclick="approve('@Model.RequestId')">Approve</button>
+                <button type="button" class="btn btn-default bold" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+

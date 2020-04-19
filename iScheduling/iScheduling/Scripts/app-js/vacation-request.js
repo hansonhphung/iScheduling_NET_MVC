@@ -1,5 +1,13 @@
 ﻿$(document).ready(() => {
 
+    search = (event) => {
+        if (event == undefined || (event != undefined  && event.keyCode == 13)) {
+            var keyword = $('#txtKeyword').val();
+
+            window.location.href = `/VacationRequest/List?keyword=${keyword}`;
+        }
+    }
+
     viewVacationRequestToApprove = (requestId) => { 
         var url = `/VacationRequest/Approve?requestId=${requestId}`;
 
