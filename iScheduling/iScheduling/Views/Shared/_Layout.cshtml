@@ -20,13 +20,14 @@
                 @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">                    
+                <ul class="nav navbar-nav">
                     @if (HttpContext.Current.User != null)
                     {
                         if (((iScheduling.Models.Auth.AuthenticationPrincipal)HttpContext.Current.User).IsInManagementRole())
                         {
                             <li>@Html.ActionLink("Employee", "List", "Employee")</li>
                             <li>@Html.ActionLink("Shift", "Index", "Shift")</li>
+                            <li>@Html.ActionLink("Day Off Request", "List", "DayOffRequest")</li>
                         }
                         else
                         {

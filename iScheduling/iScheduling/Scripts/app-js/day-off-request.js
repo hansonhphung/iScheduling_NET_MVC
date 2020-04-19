@@ -1,5 +1,25 @@
 ﻿$(document).ready(() => {
 
+    viewDORDetailToApprove = (requestId) => { 
+        var url = `/DayOffRequest/Approve?requestId=${requestId}`;
+
+        $.get(url, (data) => {
+            $('#approve-dor-modal').html(data);
+
+            $('#approve-day-off-request').modal('show');
+        });
+    }
+
+    viewDORDetailToReject = (requestId) => {
+        var url = `/DayOffRequest/Reject?requestId=${requestId}`;
+
+        $.get(url, (data) => {
+            $('#reject-dor-modal').html(data);
+
+            $('#reject-day-off-request').modal('show');
+        });
+    }
+
     requestDayOff = (shiftId) => {
         var url = `/DayOffRequest/Create?shiftId=${shiftId}`;
 
@@ -34,10 +54,46 @@
     }
 
     approve = (requestId) => {
-        alert('Request approved');
+        var comment = $('#txtApproveDORComment').val();
+        var shiftId = $('#shiftId').val();
+
+        var url = `/DayOffRequest/Approve`;
+        var data = {
+            RequestId: requestId,
+            ShiftId: shiftId,
+            Comment: comment
+        };
+
+        $.post(url, data, (res) => {
+            if (!res.IsSuccess)
+                alert(res.Message);
+
+            // reload list requests page
+            $('#approve-day-off-request').modal('hide');
+
+            window.location.reload();
+        });
     }
 
     reject = (requestId) => {
-        alert('Request rejected');
+        var comment = $('#txtRejectDORComment').val();
+        var shiftId = $('#shiftId').val();
+
+        var url = `/DayOffRequest/Reject`;
+        var data = {
+            RequestId: requestId,
+            ShiftId: shiftId,
+            Comment: comment
+        };
+
+        $.post(url, data, (res) => {
+            if (!res.IsSuccess)
+                alert(res.Message);
+
+            // reload list requests page
+            $('#reject-day-off-request').modal('hide');
+
+            window.location.reload();
+        });
     }
 });

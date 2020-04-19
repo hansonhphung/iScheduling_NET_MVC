@@ -1,0 +1,83 @@
+﻿@model IEnumerable<iScheduling.DTO.Models.DayOffRequest>
+
+@{
+    ViewBag.Title = "Day Off Requests";
+}
+
+<div class="clearfix">
+    <h2>Day Off Requests</h2>
+</div>
+
+<p></p>
+<table class="table">
+    <tr>
+        <th class="col-md-2 col-sm-2">
+            Requested By
+        </th>
+
+        <th class="col-md-2 col-sm-2">
+            Requested At
+        </th>
+
+        <th class="col-md-2 col-sm-2">
+            Date of Shift
+        </th>
+
+        <th class="col-md-1 col-sm-1">
+            Start Time
+        </th>
+
+        <th class="col-md-1 col-sm-1">
+            End Time
+        </th>
+
+        <th class="col-md-2 col-sm-2">
+            Reason
+        </th>
+
+        <th class="col-md-2 col-sm-2"></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td class="col-md-2 col-sm-2">
+                @item.RequestEmployeeName
+            </td>
+
+            <td class="col-md-2 col-sm-2">
+                @item.RequestedAt.ToShortDateString()
+            </td>
+
+            <td class="col-md-2 col-sm-2">
+                @item.RequestedShift.StartTime.Date.ToShortDateString()
+            </td>
+
+            <td class="col-md-1 col-sm-1">
+                @item.RequestedShift.StartTime.ToShortTimeString()
+            </td>
+
+            <td class="col-md-1 col-sm-1">
+                @item.RequestedShift.EndTime.ToShortTimeString()
+            </td>
+
+            <td class="col-md-2 col-sm-2">
+                @item.Reason
+            </td>
+
+            <td class="col-md-2 col-sm-2">
+                <a class="btn btn-success bold" onclick="viewDORDetailToApprove('@item.RequestId')">Approve</a>
+
+                <a class="btn btn-danger bold" onclick="viewDORDetailToReject('@item.RequestId')">Reject</a>
+            </td>
+        </tr>
+    }
+</table>
+
+<div id="approve-dor-modal"></div>
+
+<div id="reject-dor-modal"></div>
+
+@Scripts.Render("~/bundles/jquery")
+
+@Scripts.Render("~/Scripts/app-js/day-off-request.js")
