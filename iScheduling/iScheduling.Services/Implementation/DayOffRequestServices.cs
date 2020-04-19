@@ -13,10 +13,12 @@ namespace iScheduling.Services.Implementation
     public class DayOffRequestServices : IDayOffRequestServices
     {
         private readonly IDayOffRequestRepositories dayOffRequestRepositories;
+        private readonly IShiftServices shiftServices;
 
-        public DayOffRequestServices(IDayOffRequestRepositories _dayOffRequestRepositories)
+        public DayOffRequestServices(IDayOffRequestRepositories _dayOffRequestRepositories, IShiftServices _shiftServices)
         {
             dayOffRequestRepositories = _dayOffRequestRepositories;
+            shiftServices = _shiftServices;
         }
 
         public IList<DayOffRequest> GetAllPendingRequest()
@@ -32,6 +34,21 @@ namespace iScheduling.Services.Implementation
                 throw ex;
             }
         }
+
+        public DayOffRequest GetRequestById(string requestId)
+        {
+            try
+            {
+                var dorEntity = dayOffRequestRepositories.GetRequestById(requestId);
+
+                return dorEntity;
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         public bool CreateDayOff(DayOffRequest request)
         {
             try
@@ -51,22 +68,28 @@ namespace iScheduling.Services.Implementation
             }
         }
 
-        public bool ApproveRequest(string shiftId, string approvedBy, string responseComment)
+        public bool ApproveRequest(string requestId, string shiftId, string approvedBy, string responseComment)
         {
             try
             {
-                return dayOffRequestRepositories.ApproveRequest(shiftId, approvedBy, responseComment);
+                var isApproved = dayOffRequestRepositories.ApproveRequest(requestId, shiftId, approvedBy, responseComment);
+
+                if (isApproved)
+                    isApproved = shiftServices.CancelShift(shiftId);
+
+                return isApproved;
+
             }catch(Exception ex)
             {
                 throw ex;
             }
         }
 
-        public bool RejectRequest(string shiftId, string rejectedBy, string responseComment)
+        public bool RejectRequest(string requestId, string shiftId, string rejectedBy, string responseComment)
         {
             try
             {
-                return dayOffRequestRepositories.RejectRequest(shiftId, rejectedBy, responseComment);
+                return dayOffRequestRepositories.RejectRequest(requestId, shiftId, rejectedBy, responseComment);
             }catch(Exception ex)
             {
                 throw ex;

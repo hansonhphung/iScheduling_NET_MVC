@@ -14,6 +14,37 @@ namespace iScheduling.Repositories.Implementation
     {
         public DayOffRequestRepositories(iSchedulingContext context ) : base(context) { }
 
+        public DTO.Models.DayOffRequest GetRequestById(string requestId)
+        {
+            try
+            {
+                var request = Entities.DayOffRequests
+                    .Join(Entities.Employees, dor => dor.RequestEmployeeId, e => e.EmployeeId,
+                         (dor, e) => new { dor, e })
+                    .Where(x => x.dor.RequestId == requestId)
+                    .FirstOrDefault();
+
+                return new DTO.Models.DayOffRequest
+                {
+                    RequestId = request.dor.RequestId,
+                    RequestEmployeeId = request.dor.RequestEmployeeId,
+                    RequestEmployeeName = request.e.FirstName + " " + request.e.LastName,
+                    RequestedAt = request.dor.RequestedAt,
+                    Reason = request.dor.Reason,
+                    RequestedShift = new DTO.Models.Shift
+                    {
+                        ShiftId = request.dor.RequestedShift.ShiftId,
+                        EmployeeId = request.dor.RequestedShift.EmployeeId,
+                        StartTime = request.dor.RequestedShift.StartTime,
+                        EndTime = request.dor.RequestedShift.EndTime
+                    },
+                };
+            }catch(Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         public IList<DTO.Models.DayOffRequest> GetAllPendingRequest()
         {
             try
@@ -70,14 +101,14 @@ namespace iScheduling.Repositories.Implementation
         }
 
 
-        public bool ApproveRequest(string shiftId, string approvedBy ,string responseComment)
+        public bool ApproveRequest(string requestId, string shiftId, string approvedBy ,string responseComment)
         {
             try
             {
                 var pending = EnumHelpers.GetDescription(DayOffRequestStatus.PENDING);
                 var approved = EnumHelpers.GetDescription(DayOffRequestStatus.APPROVED);
 
-                var request = Entities.DayOffRequests.Where(x => x.RequestedShiftId.Equals(shiftId) && x.Status.Equals(pending)).FirstOrDefault();
+                var request = Entities.DayOffRequests.Where(x => x.RequestId.Equals(requestId) && x.Status.Equals(pending)).FirstOrDefault();
 
                 if (request == null)
                     return false;
@@ -96,14 +127,14 @@ namespace iScheduling.Repositories.Implementation
         }
         
 
-        public bool RejectRequest(string shiftId, string rejectedBy ,string responseComment)
+        public bool RejectRequest(string requestId, string shiftId, string rejectedBy ,string responseComment)
         {
             try
             {
                 var pending = EnumHelpers.GetDescription(DayOffRequestStatus.PENDING);
                 var rejected = EnumHelpers.GetDescription(DayOffRequestStatus.REJECTED);
 
-                var request = Entities.DayOffRequests.Where(x => x.RequestedShiftId.Equals(shiftId) && x.Status.Equals(pending)).FirstOrDefault();
+                var request = Entities.DayOffRequests.Where(x => x.RequestId.Equals(requestId) && x.Status.Equals(pending)).FirstOrDefault();
 
                 if (request == null)
                     return false;

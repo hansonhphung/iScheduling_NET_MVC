@@ -185,5 +185,29 @@ namespace iScheduling.Repositories.Implementation
                 throw ex;
             }
         }
+
+        public bool CancelShift(string shiftId)
+        {
+            try
+            {
+                var shiftEntity = Entities.Shifts.Where(x => x.ShiftId == shiftId
+                                                     && x.IsDeleted == false
+                                                     && x.IsCancelled == false).FirstOrDefault();
+                if (shiftEntity == null)
+                {
+                    return false;
+                }
+
+                shiftEntity.IsCancelled = true;
+
+                Entities.SaveChanges();
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }

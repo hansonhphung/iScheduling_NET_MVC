@@ -19,5 +19,7 @@ namespace iScheduling.Services.Interface
         bool EditShift(Shift shift);
 
         bool DeleteShift(string shiftId);
+
+        bool CancelShift(string shiftId);
     }
 }

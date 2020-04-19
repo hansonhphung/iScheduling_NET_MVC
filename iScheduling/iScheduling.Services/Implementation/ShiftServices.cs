@@ -100,5 +100,17 @@ namespace iScheduling.Services.Implementation
                 throw ex;
             }
         }
+
+        public bool CancelShift(string shiftId)
+        {
+            try
+            {
+                return shiftRepositories.CancelShift(shiftId);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }

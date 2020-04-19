@@ -92,19 +92,21 @@ namespace iScheduling.Controllers
         }
 
         [HttpGet]
-        public ActionResult Approve(string shiftId)
+        public ActionResult Approve(string requestId)
         {
             try
             {
-                var shift = shiftServices.GetShiftById(shiftId);
+                var request = dayOffRequestServices.GetRequestById(requestId);
 
                 var requestVM = new ApproveRejectDayOffRequestVM
                 {
-                    ShiftId = shiftId,
-                    AssignedEmployee = shift.FullName,
-                    DateOfShift = shift.StartTime.Date,
-                    ShiftStartAt = shift.StartTime.ToShortTimeString(),
-                    ShiftEndAt = shift.EndTime.ToShortTimeString()
+                    RequestId = request.RequestId,
+                    ShiftId = request.RequestedShift.ShiftId,
+                    AssignedEmployee = request.RequestEmployeeName,
+                    DateOfShift = request.RequestedShift.StartTime.Date,
+                    ShiftStartAt = request.RequestedShift.StartTime.ToShortTimeString(),
+                    ShiftEndAt = request.RequestedShift.EndTime.ToShortTimeString(),
+                    Reason = request.Reason
                 };
 
                 return PartialView("_Approve_Day_Off_Request", requestVM);
@@ -123,7 +125,7 @@ namespace iScheduling.Controllers
             {
                 var userInfo = CookieHelpers.GetUserInfo();
 
-                var isApproved = dayOffRequestServices.ApproveRequest(request.ShiftId, userInfo.EmployeeId, request.ResponseComment);
+                var isApproved = dayOffRequestServices.ApproveRequest(request.RequestId, request.ShiftId, userInfo.EmployeeId, request.ResponseComment);
 
                 return Json(new BaseViewModel<bool>(true, string.Empty, isApproved), JsonRequestBehavior.AllowGet);
             }
@@ -134,19 +136,21 @@ namespace iScheduling.Controllers
         }
 
         [HttpGet]
-        public ActionResult Reject(string shiftId)
+        public ActionResult Reject(string requestId)
         {
             try
             {
-                var shift = shiftServices.GetShiftById(shiftId);
+                var request = dayOffRequestServices.GetRequestById(requestId);
 
                 var requestVM = new ApproveRejectDayOffRequestVM
                 {
-                    ShiftId = shiftId,
-                    AssignedEmployee = shift.FullName,
-                    DateOfShift = shift.StartTime.Date,
-                    ShiftStartAt = shift.StartTime.ToShortTimeString(),
-                    ShiftEndAt = shift.EndTime.ToShortTimeString()
+                    RequestId = request.RequestId,
+                    ShiftId = request.RequestedShift.ShiftId,
+                    AssignedEmployee = request.RequestEmployeeName,
+                    DateOfShift = request.RequestedShift.StartTime.Date,
+                    ShiftStartAt = request.RequestedShift.StartTime.ToShortTimeString(),
+                    ShiftEndAt = request.RequestedShift.EndTime.ToShortTimeString(),
+                    Reason = request.Reason
                 };
 
                 return PartialView("_Reject_Day_Off_Request", requestVM);
@@ -165,7 +169,7 @@ namespace iScheduling.Controllers
             {
                 var userInfo = CookieHelpers.GetUserInfo();
 
-                var isRejected = dayOffRequestServices.RejectRequest(request.ShiftId, userInfo.EmployeeId, request.ResponseComment);
+                var isRejected = dayOffRequestServices.RejectRequest(request.RequestId, request.ShiftId, userInfo.EmployeeId, request.ResponseComment);
 
                 return Json(new BaseViewModel<bool>(true, string.Empty, isRejected), JsonRequestBehavior.AllowGet);
             }

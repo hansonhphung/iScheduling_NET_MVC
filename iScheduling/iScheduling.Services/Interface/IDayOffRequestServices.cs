@@ -10,8 +10,9 @@ namespace iScheduling.Services.Interface
     public interface IDayOffRequestServices
     {
         bool CreateDayOff(DayOffRequest request);
-        bool ApproveRequest(string shiftId, string approvedBy, string responseComment);
-        bool RejectRequest(string shiftId, string rejectedBy, string responseComment);
+        DayOffRequest GetRequestById(string requestId);
+        bool ApproveRequest(string requestId, string shiftId, string approvedBy, string responseComment);
+        bool RejectRequest(string requestId, string shiftId, string rejectedBy, string responseComment);
         IList<DayOffRequest> GetAllPendingRequest();
     }
 }
