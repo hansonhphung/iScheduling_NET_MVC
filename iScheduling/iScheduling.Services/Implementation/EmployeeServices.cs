@@ -78,6 +78,28 @@ namespace iScheduling.Implementation.Services
             }
         }
 
+        public IList<Employee> GetAllEmployeeToAssignShift(DateTime dateOfShift)
+        {
+            try
+            {
+                return employeeRepositories.GetAllEmployeeToAssignShift(dateOfShift)
+                    .Select(x => new Employee
+                    {
+                        EmployeeId = x.EmployeeId,
+                        FirstName = x.FirstName,
+                        LastName = x.LastName,
+                        Address = x.Address,
+                        Phone = x.Phone,
+                        Email = x.Email,
+                        Position = x.Position
+                    }).OrderBy(e => e.Position).ToList();
+
+            }catch(Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         public Employee GetEmployeeById(string empId)
         {
             try

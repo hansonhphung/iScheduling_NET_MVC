@@ -12,6 +12,8 @@ namespace iScheduling.Repositories.Interface
         Employee Login(string username, string password);
         IList<Employee> GetAllEmployees();
 
+        IList<Employee> GetAllEmployeeToAssignShift(DateTime dateOfShift);
+
         Employee GetEmployeeById(string empId);
 
         bool AddEmployee(Employee emp);

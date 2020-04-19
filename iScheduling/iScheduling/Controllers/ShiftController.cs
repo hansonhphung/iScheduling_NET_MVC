@@ -105,7 +105,7 @@ namespace iScheduling.Controllers
         [HttpGet]
         public ActionResult AddCalendarView(DateTime selectedDate)
         {
-            IList<Employee> lstEmployee = employeeServices.GetAllEmployeeOrderByPosition();
+            IList<Employee> lstEmployee = employeeServices.GetAllEmployeeToAssignShift(selectedDate);
             
             var shift = new AddShiftVM()
             {

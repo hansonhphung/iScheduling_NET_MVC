@@ -166,6 +166,7 @@
     <Compile Include="Controllers\EmployeeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ShiftController.cs" />
+    <Compile Include="Controllers\VacationRequestController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -183,6 +184,9 @@
     <Compile Include="Models\Shift\AddShiftVM.cs" />
     <Compile Include="Models\Shift\ShiftCalendarViewVM.cs" />
     <Compile Include="Models\Shift\ShiftEmployeeViewVM.cs" />
+    <Compile Include="Models\VacationRequest\AddVacationRequestVM.cs" />
+    <Compile Include="Models\VacationRequest\ApproveRejectVacationRequestVM.cs" />
+    <Compile Include="Models\VacationRequest\ListVacationRequestVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -200,6 +204,7 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\app-js\add-edit-shift.js" />
+    <Content Include="Scripts\app-js\vacation-request.js" />
     <Content Include="Scripts\app-js\employee.js" />
     <Content Include="Scripts\app-js\day-off-request.js" />
     <Content Include="Scripts\app-js\shift.js" />
@@ -245,6 +250,10 @@
     <Content Include="Views\DayOffRequest\_Approve_Day_Off_Request.cshtml" />
     <Content Include="Views\DayOffRequest\List.cshtml" />
     <Content Include="Views\DayOffRequest\_Reject_Day_Off_Request.cshtml" />
+    <Content Include="Views\VacationRequest\List.cshtml" />
+    <Content Include="Views\VacationRequest\_Create_Vacation_Request.cshtml" />
+    <Content Include="Views\VacationRequest\_Approve_Vacation_Request.cshtml" />
+    <Content Include="Views\VacationRequest\_Reject_Vacation_Request.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

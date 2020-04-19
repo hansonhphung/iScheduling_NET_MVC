@@ -1,4 +1,5 @@
 ﻿using iScheduling.Context.Entities;
+using iScheduling.DTO.Enums;
 using iScheduling.Repositories.Context;
 using iScheduling.Repositories.Implementation;
 using iScheduling.Repositories.Interface;
@@ -40,6 +41,34 @@ namespace iScheduling.Repositories.Implementation
                 throw ex;
             }
             
+        }
+
+        public IList<Employee> GetAllEmployeeToAssignShift(DateTime dateOfShift)
+        {
+            try
+            {
+                var approved = EnumHelpers.GetDescription(VacationRequestStatus.APPROVED);
+                var onVacationEmployee = Entities.Employees.Join(Entities.VacationRequests,
+                                    e => e.EmployeeId, vr => vr.RequestEmployeeId,
+                                    (e, vr) => new
+                                    {
+                                        e.EmployeeId,
+                                        vr.StartDate,
+                                        vr.EndDate,
+                                        vr.Status
+                                    })
+                                    .Where(x => x.Status.Equals(approved))
+                                    .Select(x => x.EmployeeId)
+                                    .Distinct()
+                                    .ToList();
+
+                return Entities.Employees.Where(x => !onVacationEmployee.Contains(x.EmployeeId)
+                                                             && x.IsDeleted == false).ToList();
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public bool AddEmployee(Employee emp)

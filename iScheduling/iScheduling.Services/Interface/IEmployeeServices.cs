@@ -14,6 +14,8 @@ namespace iScheduling.Services.Interface
 
         IList<Employee> GetAllEmployeeOrderByPosition();
 
+        IList<Employee> GetAllEmployeeToAssignShift(DateTime dateOfShift);
+
         Employee GetEmployeeById(string empId);
 
         bool AddEmployee(Employee e);
