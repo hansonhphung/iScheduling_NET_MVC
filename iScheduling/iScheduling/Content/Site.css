@@ -29,3 +29,9 @@
     margin:auto;
     float:inherit;
 }
+
+.dor-status {
+    padding: 5px 10px 5px 10px;
+    border-radius: 30px;
+    font-size: 13px;
+}

@@ -1,0 +1,122 @@
+﻿@model iScheduling.Models.VacationRequest.ListVacationRequestVM
+
+@{
+    ViewBag.Title = "Vacation Requests";
+}
+
+
+<div class="clearfix">
+    <h2>Vacation Requests</h2>
+    @if (((iScheduling.Models.Auth.AuthenticationPrincipal)HttpContext.Current.User).IsInManagementRole())
+    {
+        <div class="row">
+            <div class="col-md-4 col-sm-4 float-right" style="display:inline-flex">
+                @Html.TextBoxFor(x => Model.KeyWord,
+                    new { @id = "txtKeyword", @placeholder = "Search...", @class = "form-control", @style = "display:inline-table" })
+
+                <button class="btn btn-success" type="button" style="display:inline-table"><i class="glyphicon glyphicon-calendar"></i></button>
+            </div>
+        </div>
+
+    }
+    else
+    {
+        <a class="btn btn-success bold float-right" onclick="createVacationRequest()">
+            <i class="glyphicon glyphicon-plus"></i>
+            <span>Create Request</span>
+        </a>
+    }
+</div>
+
+<p></p>
+<table class="table">
+    <tr>
+        @if (((iScheduling.Models.Auth.AuthenticationPrincipal)HttpContext.Current.User).IsInManagementRole())
+        {
+            <th class="col-md-2 col-sm-2">
+                Requested By
+            </th>
+        }
+
+        <th class="col-md-2 col-sm-2">
+            Requested At
+        </th>
+
+        <th class="col-md-2 col-sm-2">
+            Start Date
+        </th>
+
+        <th class="col-md-2 col-sm-1">
+            End Date
+        </th>
+
+        <th class="col-md-2 col-sm-2">
+            Status
+        </th>
+
+        <th class="col-md-2 col-sm-2"></th>
+    </tr>
+
+    @foreach (var item in Model.ListRequest)
+    {
+        <tr>
+        @if (((iScheduling.Models.Auth.AuthenticationPrincipal)HttpContext.Current.User).IsInManagementRole())
+        {
+        <td class="col-md-2 col-sm-2">
+            @item.RequestEmployeeName
+        </td>
+        }
+
+        <td class="col-md-2 col-sm-2">
+            @item.RequestedAt.ToShortDateString()
+        </td>
+
+        <td class="col-md-2 col-sm-2">
+            @item.StartDate.ToShortDateString()
+        </td>
+
+        <td class="col-md-2 col-sm-2">
+            @item.EndDate.ToShortDateString()
+        </td>
+
+        <td class="col-md-2 col-sm-2">
+            @{
+                string labelClass = "";
+                if (item.Status.Equals("Pending"))
+                {
+                    labelClass = "btn-warning";
+                }
+                else if (item.Status.Equals("Approved"))
+                {
+                    labelClass = "btn-success";
+                }
+                else
+                {
+                    labelClass = "btn-danger";
+                }
+
+                <label class="dor-status @labelClass">@item.Status</label>
+            }
+        </td>
+
+        @if (((iScheduling.Models.Auth.AuthenticationPrincipal)HttpContext.Current.User).IsInManagementRole())
+        {
+            <td class="col-md-2 col-sm-2">
+                <a class="btn btn-success bold" onclick="viewRequestDetailToApprove('@item.RequestId')">Approve</a>
+
+                <a class="btn btn-danger bold" onclick="viewRequestDetailToReject('@item.RequestId')">Reject</a>
+            </td>
+        }
+    </tr>
+    }
+</table>
+
+<div id="create-vacation-request-modal"></div>
+
+<div id="approve-vacation-request-modal"></div>
+
+<div id="reject-vacation-request-modal"></div>
+
+@Scripts.Render("~/bundles/jquery")
+
+@Scripts.Render("~/Scripts/app-js/vacation-request.js")
