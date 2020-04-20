@@ -10,6 +10,8 @@ namespace iScheduling.Repositories.Interface
     public interface IEmployeeRepositories : IRepositories
     {
         Employee Login(string username, string password);
+        bool IsUsernameExists(string username);
+
         IList<Employee> GetAllEmployees();
 
         IList<Employee> GetAllEmployeeToAssignShift(DateTime dateOfShift);

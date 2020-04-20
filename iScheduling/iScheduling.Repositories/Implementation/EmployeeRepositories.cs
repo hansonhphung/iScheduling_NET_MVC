@@ -39,8 +39,20 @@ namespace iScheduling.Repositories.Implementation
             catch(Exception ex)
             {
                 throw ex;
+            }   
+        }
+
+        public bool IsUsernameExists(string username)
+        {
+            try
+            {
+                var user = Entities.Employees.Where(x => x.Username.Equals(username)).FirstOrDefault();
+
+                return (user != null);
+            }catch(Exception ex)
+            {
+                throw ex;
             }
-            
         }
 
         public IList<Employee> GetAllEmployeeToAssignShift(DateTime dateOfShift)
@@ -107,6 +119,7 @@ namespace iScheduling.Repositories.Implementation
 
                 empEntity.FirstName = emp.FirstName;
                 empEntity.LastName = emp.LastName;
+                empEntity.Username = emp.Username;
                 empEntity.Email = emp.Email;
                 empEntity.Address = emp.Address;
                 empEntity.Phone = emp.Phone;

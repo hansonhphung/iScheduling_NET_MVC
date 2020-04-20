@@ -128,6 +128,10 @@ namespace iScheduling.Implementation.Services
         {
             try
             {
+                var username = emp.Username;
+                if (employeeRepositories.IsUsernameExists(username))
+                    return false;
+
                 return employeeRepositories.AddEmployee(new Context.Entities.Employee
                 {
                     EmployeeId = Guid.NewGuid().ToString(),
@@ -154,11 +158,16 @@ namespace iScheduling.Implementation.Services
         public bool UpdateEmployee(Employee emp) {
             try
             {
+                var username = emp.Username;
+                if (employeeRepositories.IsUsernameExists(username))
+                    return false;
+
                 return employeeRepositories.UpdateEmployee(new Context.Entities.Employee
                 {
                     EmployeeId = emp.EmployeeId,
                     FirstName = emp.FirstName,
                     LastName = emp.LastName,
+                    Username = emp.Username,
                     Position = emp.Position.ToString(),
                     Email = emp.Email,
                     Phone = emp.Phone,
