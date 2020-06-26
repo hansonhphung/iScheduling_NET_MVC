@@ -46,8 +46,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Autofac, Version=4.1.1.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
-      <HintPath>..\packages\Autofac.4.1.1\lib\net45\Autofac.dll</HintPath>
+    <Reference Include="Autofac, Version=5.0.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.5.0.0\lib\net461\Autofac.dll</HintPath>
+    </Reference>
+    <Reference Include="Autofac.Integration.Mvc, Version=5.0.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.Mvc5.5.0.0\lib\net461\Autofac.Integration.Mvc.dll</HintPath>
     </Reference>
     <Reference Include="Autofactory, Version=6.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Autofactory.6.0.0\lib\net45\Autofactory.dll</HintPath>
@@ -58,16 +61,35 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.4.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.1.1.0\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.7\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.5.2\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.2\lib\netstandard2.0\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Http, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.7\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.7\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
@@ -130,24 +152,63 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="APIResponseMessages.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>APIResponseMessages.resx</DependentUpon>
+    </Compile>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\IoCConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AuthController.cs" />
+    <Compile Include="Controllers\DayOffRequestController.cs" />
+    <Compile Include="Controllers\EmployeeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ShiftController.cs" />
+    <Compile Include="Controllers\VacationRequestController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helper\ColorHelpers.cs" />
+    <Compile Include="Helper\CookieHelpers.cs" />
+    <Compile Include="Helper\StringHelpers.cs" />
+    <Compile Include="Models\Auth\AuthenticationPrincipal.cs" />
+    <Compile Include="Models\Auth\AuthorizeUser.cs" />
+    <Compile Include="Models\Auth\CustomAuthorizeAttribute.cs" />
+    <Compile Include="Models\BaseViewModel.cs" />
+    <Compile Include="Models\CustomException.cs" />
+    <Compile Include="Models\DayOffRequest\AddDayOffRequestVM.cs" />
+    <Compile Include="Models\DayOffRequest\ApproveRejectDayOffRequestVM.cs" />
+    <Compile Include="Models\Employee\ListEmployeesVM.cs" />
+    <Compile Include="Models\Shift\AddShiftVM.cs" />
+    <Compile Include="Models\Shift\ShiftCalendarViewVM.cs" />
+    <Compile Include="Models\Shift\ShiftEmployeeViewVM.cs" />
+    <Compile Include="Models\VacationRequest\AddVacationRequestVM.cs" />
+    <Compile Include="Models\VacationRequest\ApproveRejectVacationRequestVM.cs" />
+    <Compile Include="Models\VacationRequest\ListVacationRequestVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\bootstrap-datepicker.min.css" />
+    <Content Include="Content\bootstrap-datepicker.standalone.min.css" />
+    <Content Include="Content\bootstrap-datepicker3.min.css" />
+    <Content Include="Content\bootstrap-datepicker3.standalone.min.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\shift.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Scripts\app-js\add-edit-shift.js" />
+    <Content Include="Scripts\app-js\vacation-request.js" />
+    <Content Include="Scripts\app-js\employee.js" />
+    <Content Include="Scripts\app-js\day-off-request.js" />
+    <Content Include="Scripts\app-js\shift.js" />
+    <Content Include="Scripts\bootstrap-datepicker.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
@@ -175,15 +236,27 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Employee\List.cshtml" />
+    <Content Include="Views\Employee\_Add_Employee.cshtml" />
+    <Content Include="Views\Employee\_Edit_Employee.cshtml" />
+    <Content Include="Views\Employee\_Delete_Employee.cshtml" />
+    <Content Include="Views\Shift\CalendarView.cshtml" />
+    <Content Include="Views\Shift\_Add_Edit_Shift.cshtml" />
+    <Content Include="Views\Shift\_ListShift.cshtml" />
+    <Content Include="Views\Shift\EmployeeView.cshtml" />
+    <Content Include="Views\Shift\_List_Shift_Employee_View.cshtml" />
+    <Content Include="Views\Auth\Login.cshtml" />
+    <Content Include="Views\DayOffRequest\_Create_Day_Off_Request.cshtml" />
+    <Content Include="Views\DayOffRequest\_Approve_Day_Off_Request.cshtml" />
+    <Content Include="Views\DayOffRequest\List.cshtml" />
+    <Content Include="Views\DayOffRequest\_Reject_Day_Off_Request.cshtml" />
+    <Content Include="Views\VacationRequest\List.cshtml" />
+    <Content Include="Views\VacationRequest\_Create_Vacation_Request.cshtml" />
+    <Content Include="Views\VacationRequest\_Approve_Vacation_Request.cshtml" />
+    <Content Include="Views\VacationRequest\_Reject_Vacation_Request.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Entities\" />
-    <Folder Include="Implementation\Services\" />
-    <Folder Include="Implementation\Utilities\" />
-    <Folder Include="Interface\Services\" />
-    <Folder Include="Interface\Utilities\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -197,6 +270,26 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\iScheduling.DTO\iScheduling.DTO.csproj">
+      <Project>{ddff6d58-d718-4767-a599-fabf420991a3}</Project>
+      <Name>iScheduling.DTO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\iScheduling.Repositories\iScheduling.Repositories.csproj">
+      <Project>{18aa8a67-7958-4a55-842a-daabd0f589cb}</Project>
+      <Name>iScheduling.Repositories</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\iScheduling.Services\iScheduling.Services.csproj">
+      <Project>{52a64b32-568e-4562-9ad6-86b44a8cdb48}</Project>
+      <Name>iScheduling.Services</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="APIResponseMessages.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>APIResponseMessages.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

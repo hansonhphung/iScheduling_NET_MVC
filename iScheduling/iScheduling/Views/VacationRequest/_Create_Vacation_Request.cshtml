@@ -1,0 +1,40 @@
+﻿<div class="modal fade" id="create-vacation-request" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Create Vacation Request</h3>
+            </div>
+
+
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                        <div class="md-form form-group">
+                            <label>Start Date: </label>
+                            <div class="input-group-btn" style="display:inline-flex; width:100%">
+                                <input id="vacationStartDatePicker" type="text" class="form-control" style="display:inline-table"/>
+                                <button class="btn btn-success" type="button" style="display:inline-table"><i class="glyphicon glyphicon-calendar"></i></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                        <div class="md-form form-group">
+                            <label>End Date: </label>
+                            <div class="input-group-btn" style="display:inline-flex; width:100%">
+                                <input id="vacationEndDatePicker" type="text" class="form-control" style="display:inline-table" />
+                                <button class="btn btn-success" type="button" style="display:inline-table"><i class="glyphicon glyphicon-calendar"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success bold" onclick="createRequest()">Request</button>
+                <button type="button" class="btn btn-default bold" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+

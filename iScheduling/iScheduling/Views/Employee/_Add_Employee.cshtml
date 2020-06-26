@@ -1,0 +1,74 @@
+﻿@model iScheduling.DTO.Models.Employee
+
+@using (Html.BeginForm("Add", "Employee"))
+{
+    <!-- Modal -->
+    /**/
+    <div class="modal fade" id="add-employee" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">Add Employee</h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="row form-group">
+                            <div class="col-md-6">
+                                <label>First Name: </label>
+                                @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", @placeholder = "Enter First Name" })
+                            </div>
+                            <div class="col-md-6">
+                                <label>Last Name: </label>
+                                @Html.TextBoxFor(m => m.LastName, new { @class = "form-control", @placeholder = "Enter Last Name" })
+                            </div>
+                        </div>
+
+                        <div class="row form-group">
+                            <div class="col-md-6">
+                                <label>User Name: </label>
+                                @Html.TextBoxFor(m => m.Username, new { @class = "form-control", @placeholder = "Enter User Name" })
+                            </div>
+                            <div class="col-md-6">
+                                <label>Email: </label>
+                                @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @placeholder = "Enter Email" })
+                            </div>
+                        </div>
+
+                        <div class="row form-group">
+                            <div class="col-md-6">
+                                <label>Address: </label>
+                                @Html.TextBoxFor(m => m.Address, new { @class = "form-control", @placeholder = "Enter Address" })
+                            </div>
+                            <div class="col-md-6">
+                                <label>Phone Number: </label>
+                                @Html.TextBoxFor(m => m.Phone, new { @class = "form-control", @placeholder = "Enter Phone Number" })
+                            </div>
+                        </div>
+
+
+                        <div class="row form-group">
+                            <div class="col-md-12">
+                                <label>Role: </label>
+                                @Html.DropDownListFor(m => m.Position, new SelectList(Enum.GetValues(typeof(iScheduling.DTO.Enums.Role))
+                                                                  .Cast<iScheduling.DTO.Enums.Role>()
+                                                                  .Select(x => new SelectListItem()
+                                                                    { Text = iScheduling.DTO.Enums.EnumHelpers.GetDescription(x), Value = iScheduling.DTO.Enums.EnumHelpers.GetDescription(x)})
+                                                                  .ToList(), "Value", "Text"),
+                                                             new { @class = "form-control"})
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success bold">Add</button>
+                    <button type="button" class="btn btn-default bold" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+

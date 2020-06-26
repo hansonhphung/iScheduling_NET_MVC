@@ -1,0 +1,44 @@
+﻿@model iScheduling.Models.Shift.ShiftCalendarViewVM
+
+<table class="table">
+    <tr>
+        <th>Full Name</th>
+        <th>9:00 AM</th>
+        <th>10:00 AM</th>
+        <th>11:00 AM</th>
+        <th>12:00 PM</th>
+        <th>1:00 PM</th>
+        <th>2:00 PM</th>
+        <th>3:00 PM</th>
+        <th>4:00 PM</th>
+        <th>5:00 PM</th>
+        <th>6:00 PM</th>
+        <th>7:00 PM</th>
+        <th>8:00 PM</th>
+    </tr>
+
+    @foreach (var item in Model.Data)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FullName)
+            </td>
+            @{
+                if (item.NonWorking_1 > 0)
+                {
+                    <td colspan=@item.NonWorking_1></td>
+                }
+            }
+            <td colspan=@item.Working id="shift" style="border-radius: 6px; background:linear-gradient(to right bottom, @item.ColorFrom , @item.ColorTo)"
+                onclick="editShift('@item.ShiftId', true)"></td>
+
+            @{
+                if (item.NonWorking_2 > 0)
+                {
+                    <td colspan=@item.NonWorking_2></td>
+                }
+            }
+
+        </tr>
+    }
+</table>

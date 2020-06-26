@@ -1,0 +1,87 @@
+﻿@model iScheduling.Models.Employee.ListEmployeesVM
+
+@{
+    ViewBag.Title = "List of Employees";
+}
+
+<div class="clearfix">
+    <h2>List of Employees</h2>
+
+    <a class="btn btn-success bold float-right" data-toggle="modal" data-target="#add-employee">
+        <i class="glyphicon glyphicon-plus"></i>
+        <span>Add Employee</span>
+    </a>
+</div>
+
+<p></p>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Data.FirstOrDefault().FirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Data.FirstOrDefault().LastName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Data.FirstOrDefault().Address)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Data.FirstOrDefault().Phone)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Data.FirstOrDefault().Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Data.FirstOrDefault().Position)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.Data)
+    {
+        <tr>
+            <td>
+                <a href="/Shift/EmployeeView?empId=@item.EmployeeId">@item.FirstName</a>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Address)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Phone)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Position)
+            </td>
+            <td>
+                <a class="btn btn-warning bold" onclick="getEmployeeInfo('@item.EmployeeId')">
+                    <i class="glyphicon glyphicon-pencil"></i>
+                </a>
+
+                <a class="btn btn-danger bold" onclick="deleteEmployee('@item.EmployeeId')">
+                    <i class="glyphicon glyphicon-trash"></i>
+                </a>
+            </td>
+        </tr>
+    }
+
+</table>
+
+<div id="edit-employee-modal"></div>
+
+<div id="delete-employee-modal"></div>
+
+@Html.Partial("_Add_Employee", new iScheduling.DTO.Models.Employee())
+
+
+@Scripts.Render("~/bundles/jquery")
+
+@Scripts.Render("~/Scripts/app-js/employee.js")
+
+@Styles.Render("~/Content/employee.css")

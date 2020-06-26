@@ -18,6 +18,17 @@ namespace iScheduling
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
+
+            routes.MapRoute(
+                name: "EmployeeShift",
+                url: "Shift/{empId}/{startDate}/{endDate}",
+                new { controller = "Shift", action = "ListShiftEmployeeView" });
+
+            routes.MapRoute(
+                name: "Index",
+                url: "",
+                new { controller = "Employee", action = "List" }
+            );
         }
     }
 }

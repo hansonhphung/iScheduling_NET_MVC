@@ -1,0 +1,63 @@
+﻿@model iScheduling.Models.DayOffRequest.ApproveRejectDayOffRequestVM
+
+<div class="modal fade" id="approve-day-off-request" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="md-form form-group">
+                            <h4>Assigned Employee: @Model.AssignedEmployee</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="shiftId" value="@Model.ShiftId"/>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="md-form form-group">
+                            <label>Date of Shift: @Model.DateOfShift.ToShortDateString()</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                        <div class="md-form form-group">
+                            <label>Shift Start At: @Model.ShiftStartAt</label>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-sm-6 col-xs6">
+                        <div class="md-form form-group">
+                            <label>Shift End At: @Model.ShiftEndAt</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="md-form form-group">
+                            <label>Reason: @Model.Reason</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="md-form form-group">
+                            <label>Comment: </label>
+                            @Html.TextAreaFor(m => m.ResponseComment, new { @class = "form-control", @id = "txtApproveDORComment", @placeholder = "Comment" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success bold" onclick="approve('@Model.RequestId')">Approve</button>
+                <button type="button" class="btn btn-default bold" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+

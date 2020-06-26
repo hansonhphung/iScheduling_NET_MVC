@@ -1,0 +1,147 @@
+﻿@model iScheduling.Models.Shift.AddShiftVM
+
+@{
+    var actionUrl = (Model.ShiftId == null) ? "Add" : "Edit";
+}
+
+@using (Html.BeginForm(actionUrl, "Shift"))
+{
+
+    <!-- Modal -->
+    /**/
+
+    @Html.HiddenFor(m => m.IsCalendarView, new { @id = "isCalendarView" })
+    @Html.HiddenFor(m => m.ShiftId, new { @id = "shiftId" })
+    @Html.HiddenFor(m => m.DateOfShift, new { @id = "dateOfShift" })
+    <div class="modal fade" id="add-edit-shift" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    @{
+                        if (Model.IsCalendarView)
+                        {
+                            <h3 class="modal-title">Date: @(((DateTime)Model.DateOfShift).ToShortDateString())</h3>
+                        }
+                        else
+                        {
+                            @Html.HiddenFor(m => m.StartDate, new { @id = "startDate" })
+                            @Html.HiddenFor(m => m.EndDate, new { @id = "endDate" })
+                            @Html.HiddenFor(m => m.AssignedShiftEmployeeId, new { @id = "employeeId" })
+
+                            <h3>Employee: @Model.AssignedShiftEmployeeFullName</h3>
+                        }
+                    }
+
+                    @{
+                        if (Model.ShiftId != null)
+                        {
+                            <button type="button" class="btn btn-danger bold float-right" onclick="deleteShift('@Model.ShiftId')">
+                                Delete Shift
+                            </button>
+                        }
+                    }
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="md-form form-group">
+                                @{
+                                    if (Model.IsCalendarView)
+                                    {
+                                        <label>Employee: </label>
+                                        @Html.DropDownListFor(m => m.AssignedShiftEmployeeId,
+                                                                new SelectList(Model.ListEmployees
+                                                                    .Select(x => new { Text = string.Format("{0} - {1}", x.FullName, x.Position), Value = x.EmployeeId })
+                                                                    , "Value", "Text"),
+                                                                new { @class = "form-control", @id = "ddlEmployeeId" })
+                                    }
+                                    else
+                                    {
+                                        @Html.HiddenFor(m => m.AssignedShiftEmployeeId)
+
+                                        <label>Date of Shift: </label>
+                                        <div class="input-group-btn" style="display:inline-flex; width:100%">
+                                            @Html.TextBoxFor(m => m.DateOfShift, new { @class = "form-control", @style = "display:inline-table", @id = "dateOfShiftPicker" })
+
+                                            <button class="btn btn-success" type="button" style="display:inline-table"><i class="glyphicon glyphicon-calendar"></i></button>
+                                        </div>
+                                    }
+                                }
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="row form-group">
+                        <div class="col-md-6">
+                            <label>Start Time: </label>
+                            @Html.TextBoxFor(m => m.ShiftStartAt, Model.ShiftStartAt, new { @id = "start-time", @readonly = "readonly", @class = "form-control", @onClick = "chooseStartTime()" })
+
+                            <div id="start-time-picker" class="hide-time-picker">
+                                <div class="row form-group">
+                                    <div class="cell col-md-2 col-sm-2">9:00 AM</div>
+                                    <div class="cell col-md-2 col-sm-2">10:00 AM</div>
+                                    <div class="cell col-md-2 col-sm-2">11:00 AM</div>
+                                    <div class="cell col-md-2 col-sm-2">12:00 PM</div>
+                                </div>
+                                <div class="row form-group">
+                                    <div class="cell col-md-2 col-sm-2">1:00 PM</div>
+                                    <div class="cell col-md-2 col-sm-2">2:00 PM</div>
+                                    <div class="cell col-md-2 col-sm-2">3:00 PM</div>
+                                    <div class="cell col-md-2 col-sm-2">4:00 PM</div>
+                                </div>
+                                <div class="row form-group">
+                                    <div class="cell col-md-2 col-sm-2">5:00 PM</div>
+                                    <div class="cell col-md-2 col-sm-2">6:00 PM</div>
+                                    <div class="cell col-md-2 col-sm-2">7:00 PM</div>
+                                    <div class="cell col-md-2 col-sm-2">8:00 PM</div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-md-6">
+                            <label>End Time: </label>
+                            @Html.TextBoxFor(m => m.ShiftEndAt, Model.ShiftEndAt, new { @id = "end-time", @class = "form-control", @readonly = "readonly", @onClick = "chooseEndTime()" })
+
+                            <div id="end-time-picker" class="hide-time-picker">
+                                <div class="row form-group">
+                                    <div class="cell col-md-2 col-sm-2">9:00 AM</div>
+                                    <div class="cell col-md-2 col-sm-2">10:00 AM</div>
+                                    <div class="cell col-md-2 col-sm-2">11:00 AM</div>
+                                    <div class="cell col-md-2 col-sm-2">12:00 PM</div>
+                                </div>
+                                <div class="row form-group">
+                                    <div class="cell col-md-2 col-sm-2">1:00 PM</div>
+                                    <div class="cell col-md-2 col-sm-2">2:00 PM</div>
+                                    <div class="cell col-md-2 col-sm-2">3:00 PM</div>
+                                    <div class="cell col-md-2 col-sm-2">4:00 PM</div>
+                                </div>
+                                <div class="row form-group">
+                                    <div class="cell col-md-2 col-sm-2">5:00 PM</div>
+                                    <div class="cell col-md-2 col-sm-2">6:00 PM</div>
+                                    <div class="cell col-md-2 col-sm-2">7:00 PM</div>
+                                    <div class="cell col-md-2 col-sm-2">8:00 PM</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    @if (Model.IsCalendarView)
+                    {
+                        <button type="submit" class="btn btn-success bold">@((Model.ShiftId == null) ? "Add" : "Save")</button>
+                    }
+                    else
+                    {
+                        <button type="button" class="btn btn-success bold" onclick="submitAddOrUpdateShift()">@((Model.ShiftId == null) ? "Add" : "Save")</button>
+                    }
+
+                    <button type="button" class="btn btn-default bold" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@Scripts.Render("~/Scripts/app-js/add-edit-shift.js")

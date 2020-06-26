@@ -16,9 +16,22 @@
     white-space: normal;
 }
 
-/* Set width on the form input elements since they're 100% wide by default */
-input,
-select,
-textarea {
-    max-width: 280px;
+
+.float-right {
+    float: right;
+}
+
+.bold {
+    font-weight: bold !important;
+}
+
+.align-center{
+    margin:auto;
+    float:inherit;
+}
+
+.dor-status {
+    padding: 5px 10px 5px 10px;
+    border-radius: 30px;
+    font-size: 13px;
 }

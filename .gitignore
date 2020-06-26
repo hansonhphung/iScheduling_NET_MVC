@@ -3,6 +3,8 @@
 *.com
 *.class
 *.dll
+*/bin
+*/obj
 
 # Logs and databases #
 ######################
@@ -10,8 +12,8 @@
 
 # Packages #
 ######################
-*/packages
+packages
 
-# Visual Studio#######
+# Visual Studio########
 ######################
-*/.vs
+.vs
